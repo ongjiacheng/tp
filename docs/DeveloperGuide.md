@@ -272,31 +272,39 @@ _{Explain here how the data archiving feature will be implemented}_
 
 ### Product scope
 
-**Target user profile**:
+**Target user profile**: 
+MALAddress is for hawker stall owners and stall staff who manage contacts of suppliers and regular customers in a fast-paced environment.
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
-
+**Value proposition**: 
+MALAddress lets hawker stall staff quickly store, retrieve, and update supplier/customer contact details via CLI. Staff can search contacts by keywords such as supply type or customer preferences (not just names), reducing time wasted searching across chat apps/paper notes and lowering supplier mix-ups during peak hours.
+---
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a … | I want to … | So that I can… |
+|---|---|---|---|
+| `* * *` | Chef | search for suppliers by their type of supplies | contact the correct supplier when a certain ingredient is falling short. |
+| `* * *` | Chef | store each supplier’s usual delivery lead time | plan my purchases in accordance to the lead time, so my food stock will arrive when I need them to. |
+| `* * *` | Stall Owner | add regular customers as contacts | recognize and put more care for repeat customers to maintain good relationships. |
+| `* * *` | Chef | filter suppliers by operating hours (open now) | know when to contact them, to get a quick response. |
+| `* * *` | User | add contacts | remember their contact details. |
+| `* * *` | User | delete contacts | remove contact details that are no longer relevant. |
+| `* * *` | User | view all contacts | see what information I have stored. |
+| `* * *` | First time user | see a short guide | learn how to use the app quickly. |
+| `* *` | User | auto-complete contacts in search bar | quickly find contacts without typing the whole name. |
+| `* *` | User | view contacts by group (suppliers vs customers) | focus on the right set quickly. |
+| `* * *` | User | edit contacts information | keep contact details and information up to date. |
+| `* *` | User | prevent duplicate contacts | avoid confusion from repeated entries. |
+| `* *` | Stall Owner | add regular customers’ contacts | establish a greater connection with customer. |
+| `* *` | User | add notes to contacts | record useful details. |
+| `* *` | User | sort contacts by the given categories | scan the list more efficiently. |
+| `* *` | User | undo my last change | recover from mistakes. |
+| `* *` | User | redo my last undone change | recover an action if i undo by mistake. |
+| `* *` | User | have validated data input (not more than 8 digits) | make sure the input contact details are valid. |
+| `* *` | User | add alternative contact information | reach contacts if the main number is not working. |
+| `* *` | User | confirm before deleting | prevent from accidental deletion of important contacts. |
 
 ### Use cases
 
