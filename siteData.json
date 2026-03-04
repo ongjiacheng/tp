@@ -7,11 +7,11 @@
       "headings": {
         "about-us": "About Us",
         "project-team": "Project team",
-        "john-doe": "John Doe",
-        "jane-doe": "Jane Doe",
-        "johnny-doe": "Johnny Doe",
-        "li-ren-wong": "Li Ren Wong",
-        "james-doe": "James Doe"
+        "cheneil-gallardo-lee": "Cheneil Gallardo Lee",
+        "louis-christopher-yu": "Louis Christopher Yu",
+        "ong-jia-cheng": "Ong Jia Cheng",
+        "toh-yi-sheng": "Toh Yi Sheng",
+        "wong-li-ren": "Wong Li Ren"
       },
       "headingKeywords": {}
     },
@@ -136,6 +136,16 @@
       "headingKeywords": {}
     },
     {
+      "src": "team/jiacheng.md",
+      "headings": {
+        "ong-jia-cheng": "Ong Jia Cheng",
+        "about": "About",
+        "projects": "Projects",
+        "skills": "Skills"
+      },
+      "headingKeywords": {}
+    },
+    {
       "src": "team/johndoe.md",
       "title": "John Doe's Project Portfolio Page",
       "headings": {
@@ -146,7 +156,7 @@
     {
       "src": "team/liren.md",
       "headings": {
-        "li-ren-wong": "Li Ren Wong",
+        "wong-li-ren": "Wong Li Ren",
         "about": "About",
         "projects": "Projects",
         "maladdress-team-project": "MALAddress (Team Project)",
