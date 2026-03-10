@@ -2,19 +2,22 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
 import java.time.LocalTime;
-import seedu.address.commons.util.ToStringBuilder;
+import java.util.Set;
+
 import seedu.address.model.tag.Tag;
 
-
+/**
+ * Represents a Supplier in the address book.
+ */
 public class Supplier extends Person {
+
     private final String openingHours;
     private final Phone alternativeContact;
 
+    /**
+     * Constructs a Supplier with the given details.
+     */
     public Supplier(Name name, Phone phone, Email email, Address address,
                     Set<Tag> tags, String openingHours, Phone alternativeContact) {
         super(name, phone, email, address, tags);
@@ -31,11 +34,9 @@ public class Supplier extends Person {
         return alternativeContact;
     }
 
-
-    public String getPersonType(){
+    public String getPersonType() {
         return "Supplier";
     }
-
 
     /**
      * Returns true if store is open.
@@ -56,4 +57,5 @@ public class Supplier extends Person {
 
         return !now.isBefore(openTime) && now.isBefore(closeTime);
     }
+
 }
