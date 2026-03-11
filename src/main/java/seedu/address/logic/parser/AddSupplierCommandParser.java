@@ -6,48 +6,36 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TYPE;
 
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.AddSupplierCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Supplier;
 import seedu.address.model.tag.Tag;
 
-/**
- * Parses input arguments and creates a new AddCommand object
- */
-public class AddCommandParser implements Parser<AddCommand> {
+public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
 
     private static final String MESSAGE_TAG_NOT_ALLOWED =
-            "Tags are not allowed in add. Use addcustomer/addsupplier, or use the tag command after adding.";
+            "Tags are not allowed in addsupplier. Use the tag command after adding.";
 
-    private static final Set<Tag> DEFAULT_TAGS = Set.of(new Tag("NONE"));
+    private static final Set<Tag> SUPPLIER_TAGS = Set.of(new Tag("supplier"));
 
-    /**
-     * Parses the given {@code String} of arguments in the context of the AddCommand
-     * and returns an AddCommand object for execution.
-     * @throws ParseException if the user input does not conform the expected format
-     */
-    public AddCommand parse(String args) throws ParseException {
+    @Override
+    public AddSupplierCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                // Keep PREFIX_TAG so 't/' is recognized instead of getting swallowed into another field.
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSupplierCommand.MESSAGE_USAGE));
         }
 
-        // Disallow tags in add
         if (!argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
             throw new ParseException(MESSAGE_TAG_NOT_ALLOWED);
         }
@@ -58,26 +46,11 @@ public class AddCommandParser implements Parser<AddCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        String type = argMultimap.getValue(PREFIX_TYPE).get().toLowerCase();
 
-        Person person;
-
-        //Basic implementation for now. Need to update for user input later on.
-        if (type.equals("supplier")) {
-            person = new Supplier(name, phone, email, address, tagList, "09:00-17:00", null);
-        } else {
-            person = new Customer(name, phone, email, address, tagList);
-        }
-
-        Person person = new Person(name, phone, email, address, DEFAULT_TAGS);
-        return new AddCommand(person);
+        Person person = new Person(name, phone, email, address, SUPPLIER_TAGS);
+        return new AddSupplierCommand(person);
     }
 
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
