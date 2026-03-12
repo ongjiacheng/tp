@@ -11,7 +11,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
@@ -135,7 +134,7 @@ class JsonAdaptedPerson {
             return new Supplier(modelName, modelPhone, modelEmail,
                     modelAddress, modelTags, openingHours, modelAltContact);
         } else {
-            return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
         }
 
     }
