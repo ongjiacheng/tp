@@ -6,7 +6,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Supplier;
 
 /**
  * The API of the Model component.
@@ -16,8 +15,8 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
     /** {@code Predicate} that returns Supplier.isOpen */
-    Predicate<Person> PREDICATE_SHOW_ALL_OPEN = 
-	person -> person instanceof Supplier sup && sup.isOpen();
+    Predicate<Person> PREDICATE_SHOW_ALL_OPEN =
+	        person -> person.isOpen();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

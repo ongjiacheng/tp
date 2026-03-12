@@ -12,7 +12,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Supplier;
 
 /**
  * Adds a supplier contact to the address book (suppliers must have tags).
@@ -41,12 +41,13 @@ public class AddSupplierCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This supplier already exists in the address book";
 
     public static final String MESSAGE_TAG_REQUIRED = "Suppliers must have at least one tag (t/...).";
+    public static final String MESSAGE_INCORRECT_TIME_FORMAT = "Opening hours should follow 'HHmm - HHmm'";
 
-    private final Person toAdd;
+    private final Supplier toAdd;
 
-    public AddSupplierCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddSupplierCommand(Supplier supplier) {
+        requireNonNull(supplier);
+        toAdd = supplier;
     }
 
     @Override

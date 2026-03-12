@@ -3,6 +3,8 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -12,28 +14,45 @@ import seedu.address.model.tag.Tag;
  */
 public class Supplier extends Person {
 
-    private final String openingHours;
+    private static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
+
+    private final String openingHoursString;
+    private final LocalTime openTime;
+    private final LocalTime closeTime;
     private final Phone alternativeContact;
 
     /**
      * Constructs a Supplier with the given details.
      */
     public Supplier(Name name, Phone phone, Email email, Address address,
-                    Set<Tag> tags, String openingHours, Phone alternativeContact) {
+                    Set<Tag> tags, String openingHours, Phone alternativeContact) throws DateTimeParseException {
         super(name, phone, email, address, tags);
         requireAllNonNull(openingHours);
-        this.openingHours = openingHours;
+        this.openingHoursString = openingHours;
+        
+        LocalTime[] openingTimes = parseTime(openingHours);
+        this.openTime = openingTimes[0];
+        this.closeTime = openingTimes[1];
+
         this.alternativeContact = alternativeContact;
     }
 
+    private LocalTime[] parseTime(String openingHours) throws DateTimeParseException {
+        String[] splitOpeningHours = openingHours.split(" - ");
+        LocalTime openTime = LocalTime.parse(splitOpeningHours[0], INPUT_TIME_FORMAT);
+        LocalTime closeTime = LocalTime.parse(splitOpeningHours[1], INPUT_TIME_FORMAT);
+        return new LocalTime[]{ openTime, closeTime }; 
+    }
+
     public String getOpeningHours() {
-        return openingHours;
+        return openingHoursString;
     }
 
     public Phone getAlternativeContact() {
         return alternativeContact;
     }
 
+    @Override
     public String getPersonType() {
         return "Supplier";
     }
@@ -41,17 +60,13 @@ public class Supplier extends Person {
     /**
      * Returns true if store is open.
      */
+    @Override
     public boolean isOpen() {
-        if (openingHours == null || openingHours.isEmpty()) {
-            return false;
-        } else {
-            return true;
-        }
+        LocalTime now = LocalTime.now();
+        
+        boolean isAfterOpenTime = now.isAfter(this.openTime);
+        boolean isBeforeCloseTime = now.isBefore(this.closeTime);
 
-        //LocalTime now = LocalTime.now();
-        //LocalTime openTime = LocalTime.parse(parts[0].trim());
-        //LocalTime closeTime = LocalTime.parse(parts[1].trim());
-
-        //return !now.isBefore(openTime) && now.isBefore(closeTime);
+        return isAfterOpenTime & isBeforeCloseTime;
     }
 }

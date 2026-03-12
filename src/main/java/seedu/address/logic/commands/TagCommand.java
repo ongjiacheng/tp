@@ -28,7 +28,6 @@ public class TagCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Updated tags for: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_CUSTOMER_CANNOT_HAVE_TAGS = "Customers cannot have tags.";
 
     private final Index index;
     private final Set<Tag> tags;
