@@ -12,8 +12,6 @@ import seedu.address.model.tag.Tag;
  */
 public class Supplier extends Person {
 
-    public static final Tag DEFAULT_TAG = new Tag("supplier");
-
     private final String openingHours;
     private final Phone alternativeContact;
 

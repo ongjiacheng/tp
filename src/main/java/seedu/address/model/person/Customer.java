@@ -9,8 +9,6 @@ import seedu.address.model.tag.Tag;
  */
 public class Customer extends Person {
 
-    public static final Tag DEFAULT_TAG = new Tag("customer");
-
     /**
      * Constructs a Customer with the given details.
      */

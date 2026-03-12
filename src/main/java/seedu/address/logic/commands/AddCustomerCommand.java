@@ -32,7 +32,7 @@ public class AddCustomerCommand extends Command {
             + PREFIX_ADDRESS + "Blk 1";
 
     public static final String MESSAGE_SUCCESS = "New customer added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This customer already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final Person toAdd;
 

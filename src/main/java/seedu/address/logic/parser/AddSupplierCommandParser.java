@@ -16,14 +16,16 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Supplier;
 import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new AddSupplierCommand object.
  */
 public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
+
+    private static final String MESSAGE_TAG_REQUIRED = "Suppliers must have at least one tag (t/...).";
 
     @Override
     public AddSupplierCommand parse(String args) throws ParseException {
@@ -37,25 +39,22 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSupplierCommand.MESSAGE_USAGE));
         }
 
-        Supplier supplier = createSupplier(argMultimap);
+        // Require at least one tag for suppliers
+        if (argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
+            throw new ParseException(MESSAGE_TAG_REQUIRED);
+        }
 
-        return new AddSupplierCommand(supplier);
-    }
-
-    private static Supplier createSupplier(ArgumentMultimap argMultimap) throws ParseException {
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
-        Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        
-        if (!tagSet.contains(Supplier.DEFAULT_TAG)) {
-            tagSet.add(Supplier.DEFAULT_TAG);
-        }
 
-        return new Supplier(name, phone, email, address, tagSet, MESSAGE_INVALID_COMMAND_FORMAT, phone);
+        Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Person person = new Person(name, phone, email, address, tagSet);
+
+        return new AddSupplierCommand(person);
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
