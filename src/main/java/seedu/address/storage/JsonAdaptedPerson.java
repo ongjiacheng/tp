@@ -11,10 +11,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Customer;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Supplier;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -24,19 +26,26 @@ class JsonAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
+    private final String personType;
     private final String name;
     private final String phone;
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String openingHours;
+    private final String alternativeContact;
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
      */
     @JsonCreator
-    public JsonAdaptedPerson(@JsonProperty("name") String name, @JsonProperty("phone") String phone,
-            @JsonProperty("email") String email, @JsonProperty("address") String address,
-            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
+    public JsonAdaptedPerson(@JsonProperty("personType") String personType,
+                             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                             @JsonProperty("openingHours") String openingHours,
+                             @JsonProperty("alternativeContact") String alternativeContact) {
+        this.personType = personType;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -44,12 +53,14 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.openingHours = openingHours;
+        this.alternativeContact = alternativeContact;
     }
-
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
     public JsonAdaptedPerson(Person source) {
+        personType = source.getPersonType();
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -57,6 +68,16 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+
+        if (source instanceof Supplier supplier) {
+            openingHours = supplier.getOpeningHours();
+            alternativeContact = supplier.getAlternativeContact() != null
+                    ? supplier.getAlternativeContact().value
+                    : null;
+        } else {
+            openingHours = null;
+            alternativeContact = null;
+        }
     }
 
     /**
@@ -103,7 +124,20 @@ class JsonAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+
+        if ("supplier".equals(personType)) {
+            if (openingHours == null) {
+                throw new IllegalValueException("Supplier must have opening hours");
+            }
+            Phone modelAltContact = alternativeContact != null
+                    ? new Phone(alternativeContact)
+                    : null;
+            return new Supplier(modelName, modelPhone, modelEmail,
+                    modelAddress, modelTags, openingHours, modelAltContact);
+        } else {
+            return new Customer(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        }
+
     }
 
 }

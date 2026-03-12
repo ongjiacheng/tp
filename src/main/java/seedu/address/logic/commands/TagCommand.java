@@ -7,6 +7,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.List;
 import java.util.Set;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -15,7 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Replaces the tags of an existing person in the address book.
+ * Replaces tags of an existing person in the address book.
  */
 public class TagCommand extends Command {
 
@@ -34,17 +35,14 @@ public class TagCommand extends Command {
     private final Set<Tag> tags;
 
     public TagCommand(Index index, Set<Tag> tags) {
-        requireNonNull(index);
-        requireNonNull(tags);
         this.index = index;
         this.tags = tags;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        requireNonNull(model);
-
         List<Person> lastShownList = model.getFilteredPersonList();
+
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }

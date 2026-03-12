@@ -16,17 +16,19 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
+
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
 
-    // Data fields
+    // Data field
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
+
     /**
-     * Every field must be present and not null.
+     * Constructor for Person.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -35,6 +37,11 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+
+    }
+
+    public String getPersonType() {
+        return this instanceof Supplier ? "supplier" : "customer";
     }
 
     public Name getName() {
@@ -52,6 +59,12 @@ public class Person {
     public Address getAddress() {
         return address;
     }
+
+    public String getOpeningHours() {
+        return "9:00 - 18:00";
+    }
+
+
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
@@ -73,6 +86,7 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(getName());
     }
+
 
     /**
      * Returns true if both persons have the same identity and data fields.
