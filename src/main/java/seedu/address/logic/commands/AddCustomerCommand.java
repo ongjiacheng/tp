@@ -10,7 +10,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.person.Customer;
 
 /**
  * Adds a customer contact to the address book (customers have no tags).
@@ -37,11 +37,11 @@ public class AddCustomerCommand extends Command {
     public static final String MESSAGE_TAGS_NOT_ALLOWED = "Customer should not have tags";
     public static final String MESSAGE_OPENING_HOURS_NOT_ALLOWED = "Customer should not have opening hours";
 
-    private final Person toAdd;
+    private final Customer toAdd;
 
-    public AddCustomerCommand(Person person) {
-        requireNonNull(person);
-        toAdd = person;
+    public AddCustomerCommand(Customer customer) {
+        requireNonNull(customer);
+        toAdd = customer;
     }
 
     @Override
