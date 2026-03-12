@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_OPENING_HOURS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.time.DateTimeException;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -50,11 +51,17 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
         Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get());
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
+        String openingHours = argMultimap.getValue(PREFIX_OPENING_HOURS).get();
 
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-        Supplier supplier = new Supplier(name, phone, email, address, tagSet, "0900-1800", phone);
 
-        return new AddSupplierCommand(supplier);
+        try {
+            Supplier supplier = new Supplier(name, phone, email, address, tagSet, openingHours, phone);
+            return new AddSupplierCommand(supplier);
+        } catch (DateTimeException dte) {
+            throw new ParseException(AddSupplierCommand.MESSAGE_INCORRECT_TIME_FORMAT + "\n" +
+                    AddSupplierCommand.MESSAGE_USAGE);
+        }
     }
 
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {

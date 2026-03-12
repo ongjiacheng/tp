@@ -4,6 +4,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
@@ -24,7 +25,7 @@ public class Supplier extends Person {
      * Constructs a Supplier with the given details.
      */
     public Supplier(Name name, Phone phone, Email email, Address address,
-                    Set<Tag> tags, String openingHours, Phone alternativeContact) {
+                    Set<Tag> tags, String openingHours, Phone alternativeContact) throws DateTimeParseException {
         super(name, phone, email, address, tags);
         requireAllNonNull(openingHours);
         this.openingHoursString = openingHours;
@@ -36,7 +37,7 @@ public class Supplier extends Person {
         this.alternativeContact = alternativeContact;
     }
 
-    private LocalTime[] parseTime(String openingHours) {
+    private LocalTime[] parseTime(String openingHours) throws DateTimeParseException {
         String[] splitOpeningHours = openingHours.split(" - ");
         LocalTime openTime = LocalTime.parse(splitOpeningHours[0], INPUT_TIME_FORMAT);
         LocalTime closeTime = LocalTime.parse(splitOpeningHours[1], INPUT_TIME_FORMAT);
@@ -58,6 +59,7 @@ public class Supplier extends Person {
     /**
      * Returns true if store is open.
      */
+    @Override
     public boolean isOpen() {
         LocalTime now = LocalTime.now();
         
@@ -66,5 +68,4 @@ public class Supplier extends Person {
 
         return isAfterOpenTime & isBeforeCloseTime;
     }
-
 }
