@@ -14,6 +14,10 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
+    /** {@code Predicate} that returns Supplier.isOpen */
+    Predicate<Person> PREDICATE_SHOW_ALL_OPEN = 
+	person -> person instanceof Supplier sup && sup.isOpen();
+
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
      */
