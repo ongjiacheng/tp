@@ -82,6 +82,12 @@ public class AddressBookParser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
+        case AddCustomerCommand.COMMAND_WORD:
+            return new AddCustomerCommandParser().parse(arguments);
+
+        case AddSupplierCommand.COMMAND_WORD:
+            return new AddSupplierCommandParser().parse(arguments);
+
         case TagCommand.COMMAND_WORD:
             return new TagCommandParser().parse(arguments);
 

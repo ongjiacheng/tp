@@ -1,12 +1,13 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.Collections;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -19,25 +20,21 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddCustomerCommand object.
+ */
 public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
-
-    private static final String MESSAGE_TAG_NOT_ALLOWED =
-            "Tags are not allowed in addcustomer. Use the tag command after adding.";
-
-    private static final Set<Tag> CUSTOMER_TAGS = Set.of(new Tag("customer"));
 
     @Override
     public AddCustomerCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCustomerCommand.MESSAGE_USAGE));
-        }
-
-        if (!argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
-            throw new ParseException(MESSAGE_TAG_NOT_ALLOWED);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
@@ -47,7 +44,10 @@ public class AddCustomerCommandParser implements Parser<AddCustomerCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
 
-        Person person = new Person(name, phone, email, address, CUSTOMER_TAGS);
+        // Customers have NO tags
+        Set<Tag> noTags = Collections.emptySet();
+        Person person = new Person(name, phone, email, address, noTags);
+
         return new AddCustomerCommand(person);
     }
 

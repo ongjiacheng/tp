@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -19,15 +20,17 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Parses input arguments and creates a new AddSupplierCommand object.
+ */
 public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
 
-    private static final String MESSAGE_TAG_NOT_ALLOWED =
-            "Tags are not allowed in addsupplier. Use the tag command after adding.";
-
-    private static final Set<Tag> SUPPLIER_TAGS = Set.of(new Tag("supplier"));
+    private static final String MESSAGE_TAG_REQUIRED = "Suppliers must have at least one tag (t/...).";
 
     @Override
     public AddSupplierCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -36,8 +39,9 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSupplierCommand.MESSAGE_USAGE));
         }
 
-        if (!argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
-            throw new ParseException(MESSAGE_TAG_NOT_ALLOWED);
+        // Require at least one tag for suppliers
+        if (argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
+            throw new ParseException(MESSAGE_TAG_REQUIRED);
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
@@ -47,7 +51,9 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
         Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get());
         Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get());
 
-        Person person = new Person(name, phone, email, address, SUPPLIER_TAGS);
+        Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        Person person = new Person(name, phone, email, address, tagSet);
+
         return new AddSupplierCommand(person);
     }
 
