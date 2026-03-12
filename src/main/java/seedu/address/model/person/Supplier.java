@@ -54,5 +54,4 @@ public class Supplier extends Person {
 
         //return !now.isBefore(openTime) && now.isBefore(closeTime);
     }
-
 }
