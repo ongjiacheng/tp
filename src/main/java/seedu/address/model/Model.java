@@ -16,7 +16,7 @@ public interface Model {
 
     /** {@code Predicate} that returns Supplier.isOpen */
     Predicate<Person> PREDICATE_SHOW_ALL_OPEN =
-person -> person.isOpen();
+            person -> person.isOpen();
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.

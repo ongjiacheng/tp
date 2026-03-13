@@ -15,7 +15,10 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Supplier;
 
 /**
- * Adds a supplier contact to the address book (suppliers must have tags).
+ * Adds a supplier contact to the address book.
+ *
+ * <p>A supplier contact is represented by a {@link Supplier} and must have at least one tag.
+ * The supplier may also contain supplier-specific fields such as opening hours.</p>
  */
 public class AddSupplierCommand extends Command {
 
@@ -44,13 +47,21 @@ public class AddSupplierCommand extends Command {
     public static final String MESSAGE_INCORRECT_TIME_FORMAT = "Opening hours should follow 'HHmm - HHmm'";
 
     private final Supplier toAdd;
-
+    /**
+     * Creates an {@code AddSupplierCommand} to add the specified supplier.
+     *
+     * @param supplier Supplier to be added to the address book. Must not be null.
+     */
     public AddSupplierCommand(Supplier supplier) {
         requireNonNull(supplier);
         toAdd = supplier;
     }
     /**
-     * Executes the add supplier command.
+     * Executes the command and adds the supplier to the address book.
+     *
+     * @param model The model containing the current address book data.
+     * @return A {@code CommandResult} containing the result message to be shown to the user.
+     * @throws CommandException If the supplier already exists in the address book.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {

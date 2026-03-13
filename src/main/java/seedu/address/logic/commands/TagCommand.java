@@ -14,7 +14,10 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Replaces tags of an existing person in the address book.
+ * Replaces the tags of an existing person in the address book.
+ *
+ * <p>The target person is identified using the index shown in the currently displayed person list.
+ * The person's existing tags will be overwritten by the tags provided in the command.</p>
  */
 public class TagCommand extends Command {
 
@@ -31,14 +34,23 @@ public class TagCommand extends Command {
 
     private final Index index;
     private final Set<Tag> tags;
-
+    /**
+     * Creates a {@code TagCommand} that replaces the tags of the person at {@code index}.
+     *
+     * @param index Index of the person in the filtered person list whose tags will be replaced.
+     * @param tags  Tags to replace the person's existing tags with.
+     */
     public TagCommand(Index index, Set<Tag> tags) {
         this.index = index;
         this.tags = tags;
     }
 
     /**
-     * Executes the tag command.
+     * Executes the command and replaces the tags of the specified person.
+     *
+     * @param model The model containing the current address book data.
+     * @return A {@code CommandResult} containing the result message to be shown to the user.
+     * @throws CommandException If the index is invalid or if the operation results in a duplicate person.
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {

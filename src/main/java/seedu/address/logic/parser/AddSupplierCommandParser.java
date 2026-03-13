@@ -60,8 +60,9 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
             Supplier supplier = new Supplier(name, phone, email, address, tagSet, openingHours, phone);
             return new AddSupplierCommand(supplier);
         } catch (DateTimeException dte) {
-            throw new ParseException(AddSupplierCommand.MESSAGE_INCORRECT_TIME_FORMAT + "\n" +
-                    AddSupplierCommand.MESSAGE_USAGE);
+            throw new ParseException(AddSupplierCommand.MESSAGE_INCORRECT_TIME_FORMAT
+                    + "\n"
+                    + AddSupplierCommand.MESSAGE_USAGE);
         }
     }
 
