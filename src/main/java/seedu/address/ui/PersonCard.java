@@ -42,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label openingHours;
+    @FXML
     private VBox typeBadge;
     @FXML
     private Label type;
@@ -64,9 +66,11 @@ public class PersonCard extends UiPart<Region> {
             typeBadge.setVisible(true);
             typeBadge.setManaged(true);
             type.setText(person.getPersonType());
+            openingHours.setText(person.getOpeningHours());
         } else {
             typeBadge.setVisible(false);
             typeBadge.setManaged(false);
+            openingHours.setVisible(false);
         }
 
         person.getTags().stream()

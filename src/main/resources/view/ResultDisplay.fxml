@@ -5,5 +5,6 @@
 
 <StackPane fx:id="placeHolder" styleClass="pane-with-border" xmlns="http://javafx.com/javafx/17"
     xmlns:fx="http://javafx.com/fxml/1">
-  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
+  <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"
+            style="-fx-background-color: #0a2a2a; -fx-text-fill: #7dd3c0; -fx-control-inner-background: #0a2a2a;"/>
 </StackPane>
