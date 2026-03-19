@@ -43,7 +43,8 @@ public class AddSupplierCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New supplier added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This supplier already exists in the address book";
 
-    public static final String MESSAGE_TAG_REQUIRED = "Suppliers must have at least one tag (t/...).";
+    public static final String MESSAGE_TAG_REQUIRED = "Suppliers must have at least one tag (t/...)\n";
+    public static final String MESSAGE_OPENING_HOURS_REQUIRED = "Suppliers must have opening hours\n";
     public static final String MESSAGE_INCORRECT_TIME_FORMAT = "Opening hours should follow 'HHmm - HHmm'";
 
     private final Supplier toAdd;

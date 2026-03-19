@@ -37,7 +37,7 @@ public class AddCommandParser implements Parser<AddCommand> {
 
         if (arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddCommand.MESSAGE_OPENING_HOURS_NOT_ALLOWED + "\n" + AddCommand.MESSAGE_USAGE));
+                    AddCommand.MESSAGE_OPENING_HOURS_NOT_ALLOWED + AddCommand.MESSAGE_USAGE));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)

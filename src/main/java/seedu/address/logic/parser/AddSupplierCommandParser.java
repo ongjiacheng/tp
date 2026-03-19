@@ -36,13 +36,19 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
                         PREFIX_TAG, PREFIX_OPENING_HOURS);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_TAG, PREFIX_OPENING_HOURS) || !argMultimap.getPreamble().isEmpty()) {
+                PREFIX_EMAIL) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddSupplierCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
-            throw new ParseException(AddSupplierCommand.MESSAGE_TAG_REQUIRED);
+        if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+                    AddSupplierCommand.MESSAGE_OPENING_HOURS_REQUIRED + AddSupplierCommand.MESSAGE_USAGE));
+        }
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddSupplierCommand.MESSAGE_TAG_REQUIRED + AddSupplierCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
