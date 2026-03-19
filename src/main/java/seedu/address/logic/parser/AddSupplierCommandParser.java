@@ -42,7 +42,7 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, 
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddSupplierCommand.MESSAGE_OPENING_HOURS_REQUIRED + AddSupplierCommand.MESSAGE_USAGE));
         }
 
