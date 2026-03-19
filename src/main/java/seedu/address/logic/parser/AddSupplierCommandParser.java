@@ -41,7 +41,6 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
                     AddSupplierCommand.MESSAGE_USAGE));
         }
 
-        // Require at least one tag for suppliers
         if (argMultimap.getAllValues(PREFIX_TAG).isEmpty()) {
             throw new ParseException(AddSupplierCommand.MESSAGE_TAG_REQUIRED);
         }
