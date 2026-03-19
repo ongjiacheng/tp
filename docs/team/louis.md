@@ -1,6 +1,6 @@
 # Louis Yu
 
-**Role:** Developer  
+**Role:** Developer
 **Focus:** NA
 
 ## About

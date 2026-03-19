@@ -1,6 +1,6 @@
 # Toh Yi Sheng
 
-**Role:** Developer  
+**Role:** Developer
 **Focus:** UI
 
 ## About

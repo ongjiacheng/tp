@@ -63,14 +63,13 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
 
         if (person instanceof Supplier){
+            openingHours.setText(person.getOpeningHours());
             typeBadge.setVisible(true);
             typeBadge.setManaged(true);
             type.setText(person.getPersonType());
-            openingHours.setText(person.getOpeningHours());
         } else {
             typeBadge.setVisible(false);
             typeBadge.setManaged(false);
-            openingHours.setVisible(false);
         }
 
         person.getTags().stream()

@@ -233,7 +233,7 @@ empty file on the next run.
 
 <box type="warning" seamless>
 
-**Caution:**  
+**Caution:**
 If your changes make the data file format invalid, MALAddress may discard all data and start with an empty data file at
 the next run. Back up the file before editing it.
 </box>

@@ -25,8 +25,6 @@ public class TagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces the tags of the person identified "
             + "by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_TAG + "TAG [" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "vegetable " + PREFIX_TAG + "fruits";
 
     public static final String MESSAGE_SUCCESS = "Updated tags for: %1$s";
