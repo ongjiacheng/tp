@@ -36,4 +36,14 @@ public class UndoCommand extends Command {
         model.undo();
         return new CommandResult(MESSAGE_SUCCESS);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this || other instanceof UndoCommand;
+    }
+
+    @Override
+    public int hashCode() {
+        return UndoCommand.class.hashCode();
+    }
 }

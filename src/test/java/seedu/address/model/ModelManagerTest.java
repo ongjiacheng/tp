@@ -15,6 +15,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -91,6 +92,81 @@ public class ModelManagerTest {
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         assertThrows(UnsupportedOperationException.class, () -> modelManager.getFilteredPersonList().remove(0));
+    }
+
+    @Test
+    public void canUndo_noSavedState_returnsFalse() {
+        assertFalse(modelManager.canUndo());
+    }
+
+    @Test
+    public void canRedo_noSavedState_returnsFalse() {
+        assertFalse(modelManager.canRedo());
+    }
+
+    @Test
+    public void saveStateForUndo_stateSaved_canUndoReturnsTrue() {
+        modelManager.saveStateForUndo();
+
+        assertTrue(modelManager.canUndo());
+        assertFalse(modelManager.canRedo());
+    }
+
+    @Test
+    public void undo_noSavedState_throwsCommandException() {
+        assertThrows(CommandException.class, () -> modelManager.undo());
+    }
+
+    @Test
+    public void redo_noSavedState_throwsCommandException() {
+        assertThrows(CommandException.class, () -> modelManager.redo());
+    }
+
+    @Test
+    public void undo_afterChange_restoresPreviousState() throws Exception {
+        modelManager = new ModelManager(new AddressBookBuilder().withPerson(ALICE).build(), new UserPrefs());
+        ReadOnlyAddressBook originalState = new AddressBook(modelManager.getAddressBook());
+
+        modelManager.saveStateForUndo();
+        modelManager.setAddressBook(new AddressBook());
+
+        assertEquals(0, modelManager.getAddressBook().getPersonList().size());
+
+        modelManager.undo();
+
+        assertEquals(originalState, modelManager.getAddressBook());
+        assertTrue(modelManager.canRedo());
+    }
+
+    @Test
+    public void redo_afterUndo_restoresUndoneState() throws Exception {
+        modelManager = new ModelManager(new AddressBookBuilder().withPerson(ALICE).build(), new UserPrefs());
+
+        modelManager.saveStateForUndo();
+        modelManager.setAddressBook(new AddressBook());
+        modelManager.undo();
+
+        assertTrue(modelManager.hasPerson(ALICE));
+
+        modelManager.redo();
+
+        assertFalse(modelManager.hasPerson(ALICE));
+        assertTrue(modelManager.canUndo());
+    }
+
+    @Test
+    public void saveStateForUndo_afterUndo_clearsRedoHistory() throws Exception {
+        modelManager = new ModelManager(new AddressBookBuilder().withPerson(ALICE).build(), new UserPrefs());
+
+        modelManager.saveStateForUndo();
+        modelManager.setAddressBook(new AddressBook());
+        modelManager.undo();
+
+        assertTrue(modelManager.canRedo());
+
+        modelManager.saveStateForUndo();
+
+        assertFalse(modelManager.canRedo());
     }
 
     @Test
