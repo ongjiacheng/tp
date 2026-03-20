@@ -41,7 +41,8 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, Messages.format(validPerson)),
                 commandResult.getFeedbackToUser());
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(Arrays.asList(validPerson), modelStub.getPersonsAdded());
+        assertTrue(modelStub.isSaveStateForUndoCalled());
     }
 
     @Test
@@ -60,20 +61,11 @@ public class AddCommandTest {
         AddCommand addAliceCommand = new AddCommand(alice);
         AddCommand addBobCommand = new AddCommand(bob);
 
-        // same object -> returns true
         assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
         AddCommand addAliceCommandCopy = new AddCommand(alice);
         assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
         assertFalse(addAliceCommand.equals(1));
-
-        // null -> returns false
         assertFalse(addAliceCommand.equals(null));
-
-        // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -85,7 +77,7 @@ public class AddCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
+     * A default model stub that has all of the methods failing.
      */
     private class ModelStub implements Model {
         @Override
@@ -157,6 +149,31 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void saveStateForUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedo() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undo() throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redo() throws CommandException {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
@@ -177,16 +194,27 @@ public class AddCommandTest {
         }
     }
 
-    /**
-     * A Model stub that always accept the person being added.
-     */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+        private final ArrayList<Person> personsAdded = new ArrayList<>();
+        private boolean saveStateForUndoCalled = false;
 
         @Override
         public boolean hasPerson(Person person) {
             requireNonNull(person);
             return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
+
+        @Override
+        public void saveStateForUndo() {
+            saveStateForUndoCalled = true;
+        }
+
+        public boolean isSaveStateForUndoCalled() {
+            return saveStateForUndoCalled;
+        }
+
+        public ArrayList<Person> getPersonsAdded() {
+            return personsAdded;
         }
 
         @Override
@@ -200,5 +228,4 @@ public class AddCommandTest {
             return new AddressBook();
         }
     }
-
 }

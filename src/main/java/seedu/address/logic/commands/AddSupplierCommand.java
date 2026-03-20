@@ -48,6 +48,7 @@ public class AddSupplierCommand extends Command {
     public static final String MESSAGE_INCORRECT_TIME_FORMAT = "Opening hours should follow 'HHmm - HHmm'";
 
     private final Supplier toAdd;
+
     /**
      * Creates an {@code AddSupplierCommand} to add the specified supplier.
      *
@@ -57,6 +58,7 @@ public class AddSupplierCommand extends Command {
         requireNonNull(supplier);
         toAdd = supplier;
     }
+
     /**
      * Executes the command and adds the supplier to the address book.
      *
@@ -72,6 +74,7 @@ public class AddSupplierCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+        model.saveStateForUndo();
         model.addPerson(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(toAdd)));
     }

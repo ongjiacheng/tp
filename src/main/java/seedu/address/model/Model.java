@@ -88,4 +88,25 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+    /**
+     * Saves the current address book state into undo history.
+     * Should be called right before executing a successful modifying action.
+     */
+    void saveStateForUndo();
+
+    /** Returns true if there is a previous state to undo to. */
+    boolean canUndo();
+
+    /** Returns true if there is a next state to redo to. */
+    boolean canRedo();
+
+    /**
+     * Restores the previous address book state and pushes current state into redo history.
+     */
+    void undo() throws seedu.address.logic.commands.exceptions.CommandException;
+
+    /**
+     * Restores the next address book state and pushes current state into undo history.
+     */
+    void redo() throws seedu.address.logic.commands.exceptions.CommandException;
 }
