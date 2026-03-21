@@ -23,7 +23,6 @@ public class AddSupplierCommandParserTest {
         assertThrows(ParseException.class,
                 AddSupplierCommand.MESSAGE_INCORRECT_TIME_FORMAT
                         + "\n"
-                        + AddSupplierCommand.MESSAGE_USAGE,
-                () -> parser.parse(userInput));
+                        + AddSupplierCommand.MESSAGE_USAGE, () -> parser.parse(userInput));
     }
 }
