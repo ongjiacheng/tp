@@ -46,8 +46,6 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private VBox typeBadge;
     @FXML
-    private Label type;
-    @FXML
     private FlowPane tags;
 
     /**
