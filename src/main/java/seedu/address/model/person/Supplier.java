@@ -52,6 +52,19 @@ public class Supplier extends Person {
         return alternativeContact;
     }
 
+    /**
+     * Returns true if both supplier have the same name.
+     * This defines a weaker notion of equality between two supplier.
+     */
+    public boolean isSameSupplier(Supplier otherSupplier) {
+        if (otherSupplier == this) {
+            return true;
+        }
+
+        return otherSupplier != null
+                && otherSupplier.getName().equals(getName());
+    }
+
     @Override
     public String getPersonType() {
         return "Supplier";

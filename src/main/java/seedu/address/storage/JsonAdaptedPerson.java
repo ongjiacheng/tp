@@ -74,8 +74,8 @@ class JsonAdaptedPerson {
                     ? supplier.getAlternativeContact().value
                     : null;
         } else {
-            openingHours = null;
-            alternativeContact = null;
+            openingHours = "";
+            alternativeContact = "";
         }
     }
 
@@ -124,7 +124,7 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        if ("supplier".equals(personType)) {
+        if ("Supplier".equals(personType)) {
             if (openingHours == null) {
                 throw new IllegalValueException("Supplier must have opening hours");
             }
