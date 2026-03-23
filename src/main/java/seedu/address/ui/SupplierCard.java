@@ -61,7 +61,7 @@ public class SupplierCard extends UiPart<Region> {
         phone.setText(supplier.getPhone().value);
         address.setText(supplier.getAddress().value);
         email.setText(supplier.getEmail().value);
-        openingHours.setText(supplier.getOpeningHours());
+        openingHours.setText("Opening Hours: " + supplier.getOpeningHours() + "  |  " + supplier.timeLeft());
         typeBadge.setVisible(true);
         typeBadge.setManaged(true);
         type.setText(supplier.getPersonType());

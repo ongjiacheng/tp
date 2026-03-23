@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.Duration;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -81,5 +82,19 @@ public class Supplier extends Person {
         boolean isBeforeCloseTime = now.isBefore(this.closeTime);
 
         return isAfterOpenTime & isBeforeCloseTime;
+    }
+
+    public String timeLeft() {
+        LocalTime now = LocalTime.now();
+        Duration duration = Duration.between(now, closeTime);
+
+        if (duration.isNegative()) {
+            return "closed";
+        }
+
+        long hours   = duration.toHours();
+        long minutes = duration.toMinutes() % 60;
+
+        return String.format("%02d:%02d until closing", hours, minutes);
     }
 }
