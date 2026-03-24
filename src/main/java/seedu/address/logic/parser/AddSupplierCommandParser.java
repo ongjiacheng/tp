@@ -62,7 +62,8 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         try {
-            Supplier supplier = new Supplier(name, phone, email, address, tagSet, openingHours, phone);
+            Supplier supplier = new Supplier(name, phone, email, address, "", tagSet,
+openingHours, phone);
             return new AddSupplierCommand(supplier);
         } catch (DateTimeException dte) {
             throw new ParseException(AddSupplierCommand.MESSAGE_INCORRECT_TIME_FORMAT

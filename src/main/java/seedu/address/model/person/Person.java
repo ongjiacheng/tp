@@ -25,18 +25,20 @@ public class Person {
     // Data field
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
+    private final String remarks;
 
 
     /**
      * Constructor for Person.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(Name name, Phone phone, Email email, Address address, String remarks, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, remarks, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+	this.remarks = remarks;
 
     }
 
@@ -58,6 +60,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public String getRemarks() {
+        return remarks;
     }
 
     public boolean isOpen() {
