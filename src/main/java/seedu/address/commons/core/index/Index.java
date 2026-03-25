@@ -33,6 +33,11 @@ public class Index {
         return zeroBasedIndex + 1;
     }
 
+    /**
+     * Decrements the index.
+     *
+     * @throws IndexOutOfBoundsException If the zero-based index is already 0.
+     */
     public void decrement() {
         if (zeroBasedIndex <= 0) {
             throw new IndexOutOfBoundsException();
@@ -41,6 +46,9 @@ public class Index {
         this.zeroBasedIndex -= 1;
     }
 
+    /**
+     * Increments the index.
+     */
     public void increment() {
         this.zeroBasedIndex += 1;
     }

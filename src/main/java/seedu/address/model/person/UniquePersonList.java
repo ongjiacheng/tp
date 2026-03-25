@@ -69,6 +69,11 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.set(index, editedPerson);
     }
 
+    /**
+     * Moves the person {@code toMove} in the list to the specified {@code targetIndex}.
+     * {@code toMove} must exist in the list.
+     * {@code targetIndex} must be an index of a person in the list, between 0 and {@code list.size() - 1} inclusive.
+     */
     public void movePerson(Person toMove, Index targetIndex) {
         requireNonNull(toMove);
 
