@@ -7,34 +7,12 @@ skinparam classBackgroundColor LOGIC_COLOR
 package Logic as LogicPackage {
 
   package "Parser Classes" as ParserClasses {
-    Class AddressBookParser
-    Class AddCommandParser
-    Class AddSupplierCommandParser
-    Class DeleteCommandParser
-    Class EditCommandParser
-    Class FindCommandParser
-    Class TagCommandParser
-    Class OpenCommandParser
-    Class UndoCommandParser
-    Class RedoCommandParser
-    Class RemarkCommandParser
-    Class FavCommandParser
   }
 
   Class CommandResult
   Class "{abstract}\nCommand" as Command
 
-  Class AddCommand
-  Class AddSupplierCommand
-  Class DeleteCommand
-  Class EditCommand
-  Class FindCommand
-  Class TagCommand
-  Class OpenCommand
-  Class UndoCommand
-  Class RedoCommand
-  Class RemarkCommand
-  Class FavCommand
+  Class XYZCommand
 
   Class "<<interface>>\nLogic" as Logic
   Class LogicManager
@@ -54,30 +32,10 @@ LogicManager .right.|> Logic
 LogicManager -right->"1" ParserClasses
 
 ' Parser creates commands
-ParserClasses ..> AddCommand : <<create>>
-ParserClasses ..> AddSupplierCommand : <<create>>
-ParserClasses ..> DeleteCommand : <<create>>
-ParserClasses ..> EditCommand : <<create>>
-ParserClasses ..> FindCommand : <<create>>
-ParserClasses ..> TagCommand : <<create>>
-ParserClasses ..> OpenCommand : <<create>>
-ParserClasses ..> UndoCommand : <<create>>
-ParserClasses ..> RedoCommand : <<create>>
-ParserClasses ..> RemarkCommand : <<create>>
-ParserClasses ..> FavCommand : <<create>>
+ParserClasses ..> XYZCommand : <<create>>
 
 ' Commands extend Command
-AddCommand -up-|> Command
-AddSupplierCommand -up-|> Command
-DeleteCommand -up-|> Command
-EditCommand -up-|> Command
-FindCommand -up-|> Command
-TagCommand -up-|> Command
-OpenCommand -up-|> Command
-UndoCommand -up-|> Command
-RedoCommand -up-|> Command
-RemarkCommand -up-|> Command
-FavCommand -up-|> Command
+XYZCommand -up-|> Command
 
 LogicManager .left.> Command : <<call>>
 
@@ -93,9 +51,8 @@ Command .up.> CommandResult : <<create>>
 
 note right of Command
 Command implementations include:
-AddCommand, AddSupplierCommand, FindCommand,
-EditCommand, DeleteCommand, TagCommand, OpenCommand,
-UndoCommand, RedoCommand, RemarkCommand, FavCommand
+AddCommand, AddSupplierCommand, DeleteCommand, EditCommand, FindCommand
+TagCommand, OpenCommand, UndoCommand, RedoCommand, RemarkCommand, FavCommand
 end note
 
 @enduml
