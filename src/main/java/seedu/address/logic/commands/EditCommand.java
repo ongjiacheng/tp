@@ -46,7 +46,7 @@ public class EditCommand extends Command {
             + "[" + PREFIX_EMAIL + "EMAIL] "
             + "[" + PREFIX_ADDRESS + "ADDRESS] "
             + "[" + PREFIX_TAG + "TAG] "
-            + "[" + PREFIX_TAG + "OPENING_HOURS]...\n"
+            + "[" + PREFIX_OPENING_HOURS + "OPENING_HOURS]...\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com";
@@ -103,13 +103,13 @@ public class EditCommand extends Command {
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-	String updatedRemarks = personToEdit.getRemarks();
+	    String updatedRemarks = personToEdit.getRemarks();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
         boolean isFavourite = personToEdit.isFavourite();
 
 	if (personToEdit instanceof Supplier supplierToEdit) {
 	    String updatedOpeningHours = editPersonDescriptor.getOpeningHours().orElse(supplierToEdit.getOpeningHours());
-            Phone updatedAlternativeContact = editPersonDescriptor.getPhone().orElse(supplierToEdit.getAlternativeContact());
+        Phone updatedAlternativeContact = editPersonDescriptor.getPhone().orElse(supplierToEdit.getAlternativeContact());
 	    return new Supplier(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemarks, updatedTags, updatedOpeningHours, updatedAlternativeContact);
 	}
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemarks, updatedTags, isFavourite);
@@ -148,9 +148,9 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
-	private String remarks;
+	    private String remarks;
         private Set<Tag> tags;
-	private String openingHours;
+	    private String openingHours;
 
         public EditPersonDescriptor() {}
 
@@ -163,8 +163,9 @@ public class EditCommand extends Command {
             setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setAddress(toCopy.address);
+            this.remarks = toCopy.remarks;
             setTags(toCopy.tags);
-	    setOpeningHours(toCopy.openingHours);
+	        setOpeningHours(toCopy.openingHours);
         }
 
         /**
@@ -204,10 +205,6 @@ public class EditCommand extends Command {
 
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
-        }
-
-        public Optional<String> getRemarks() {
-            return Optional.ofNullable(remarks);
         }
 
         public void setOpeningHours(String openingHours) {

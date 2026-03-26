@@ -11,62 +11,58 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
-  <GridPane HBox.hgrow="ALWAYS">
-    <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-    </columnConstraints>
-    <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0"
-          style="-fx-background-color: #2C1010; -fx-border-color: #000000; -fx-border-width: 2;">
-      <padding>
-        <Insets top="5" right="5" bottom="5" left="15" />
-      </padding>
-      <HBox>
-        <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
-            <HBox>
-            <Label fx:id="id" styleClass="cell_big_label">
-            <minWidth>
-                <Region fx:constant="USE_PREF_SIZE" />
-            </minWidth>
-            </Label>
-            <Label fx:id="name" text="\$name" styleClass="cell_big_label" />
-            </HBox>
-            <FlowPane fx:id="tags" />
-            <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-            <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-            <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-            <Label fx:id="openingHours" styleClass="cell_small_label" text="\$openingHours" />
-        </VBox>
+<HBox id="cardPane" fx:id="cardPane"
+      xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <GridPane HBox.hgrow="ALWAYS">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
+        </columnConstraints>
 
-        <VBox spacing="5" alignment="TOP_RIGHT">
-            <VBox fx:id="typeBadge"
-              style="-fx-background-color: #7dd3c0;
-                     -fx-background-radius: 4;
-                     -fx-border-radius: 4;">
+        <VBox alignment="CENTER_LEFT" minHeight="105" GridPane.columnIndex="0"
+              style="-fx-background-color: #2C1010; -fx-border-color: #000000; -fx-border-width: 2;">
             <padding>
-                <Insets top="4" right="8" bottom="4" left="8" />
+                <Insets top="5" right="5" bottom="5" left="15" />
             </padding>
-            <Label fx:id="type" text="\$type" styleClass="corner_label"
-                    style="-fx-text-fill: #c0392b; -fx-font-weight: bold;" />
-            </VBox>
-            <VBox alignment="TOP_RIGHT">
-                <padding>
-                    <Insets top="4" right="8" bottom="4" left="8" />
-                </padding>
-                <ImageView fx:id="favouriteIcon" fitWidth="16" preserveRatio="true">
-                    <image>
-                        <Image url="@/images/heart.png" />
-                    </image>
-                </ImageView>
-            </VBox>
+
+            <HBox>
+                <!-- LEFT: Main contact details -->
+                <VBox HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                    <HBox>
+                        <Label fx:id="id" styleClass="cell_big_label">
+                            <minWidth>
+                                <Region fx:constant="USE_PREF_SIZE" />
+                            </minWidth>
+                        </Label>
+                        <Label fx:id="name" text="\$name" styleClass="cell_big_label" />
+                    </HBox>
+
+                    <FlowPane fx:id="tags" />
+
+                    <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
+                    <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
+                    <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                    <Label fx:id="openingHours" styleClass="cell_small_label" text="\$openingHours" />
+                    <Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks" />
+                </VBox>
+
+                <!-- RIGHT: Type badge + favourite -->
+                <VBox spacing="6" alignment="TOP_RIGHT">
+                    <VBox fx:id="typeBadge"
+                          style="-fx-background-color: #7dd3c0; -fx-background-radius: 4; -fx-border-radius: 4;">
+                        <padding>
+                            <Insets top="4" right="8" bottom="4" left="8" />
+                        </padding>
+                        <Label fx:id="type" text="\$type" styleClass="corner_label"
+                               style="-fx-text-fill: #c0392b; -fx-font-weight: bold;" />
+                    </VBox>
+
+                    <ImageView fx:id="favouriteIcon" fitWidth="16" preserveRatio="true">
+                        <image>
+                            <Image url="@/images/heart.png" />
+                        </image>
+                    </ImageView>
+                </VBox>
+            </HBox>
         </VBox>
-      </HBox>
-      <FlowPane fx:id="tags" />
-      <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-      <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-      <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
-      <Label fx:id="openingHours" styleClass="cell_small_label" text="\$openingHours" />
-      <Label fx:id="remarks" styleClass="cell_small_label" text="\$remarks" />
-    </VBox>
-  </GridPane>
+    </GridPane>
 </HBox>
