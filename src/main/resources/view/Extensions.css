@@ -18,3 +18,10 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+.button-row, .button-row:pressed {
+    -fx-border-color: #888888;
+    -fx-border-width: 2;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
+}

@@ -70,8 +70,9 @@ public class TagCommand extends Command {
                     supplier.getPhone(),
                     supplier.getEmail(),
                     supplier.getAddress(),
-		    supplier.getRemarks(),
+		                supplier.getRemarks(),
                     tags,
+                    supplier.isFavourite(),
                     supplier.getOpeningHours(),
                     supplier.getAlternativeContact()
             );
@@ -81,8 +82,9 @@ public class TagCommand extends Command {
                     personToEdit.getPhone(),
                     personToEdit.getEmail(),
                     personToEdit.getAddress(),
-		    personToEdit.getRemarks(),
-                    tags
+		                personToEdit.getRemarks(),
+                    tags,
+                    personToEdit.isFavourite()
             );
 	}
 

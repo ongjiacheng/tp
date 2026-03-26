@@ -105,13 +105,14 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
 	String updatedRemarks = personToEdit.getRemarks();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
+        boolean isFavourite = personToEdit.isFavourite();
 
 	if (personToEdit instanceof Supplier supplierToEdit) {
 	    String updatedOpeningHours = editPersonDescriptor.getOpeningHours().orElse(supplierToEdit.getOpeningHours());
             Phone updatedAlternativeContact = editPersonDescriptor.getPhone().orElse(supplierToEdit.getAlternativeContact());
 	    return new Supplier(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemarks, updatedTags, updatedOpeningHours, updatedAlternativeContact);
 	}
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemarks, updatedTags);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedRemarks, updatedTags, isFavourite);
     }
 
     @Override

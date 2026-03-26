@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -66,6 +67,22 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         internalList.set(index, editedPerson);
+    }
+
+    /**
+     * Moves the person {@code toMove} in the list to the specified {@code targetIndex}.
+     * {@code toMove} must exist in the list.
+     * {@code targetIndex} must be an index of a person in the list, between 0 and {@code list.size() - 1} inclusive.
+     */
+    public void movePerson(Person toMove, Index targetIndex) {
+        requireNonNull(toMove);
+
+        if (!contains(toMove)) {
+            throw new PersonNotFoundException();
+        }
+
+        internalList.remove(toMove);
+        internalList.add(targetIndex.getZeroBased(), toMove);
     }
 
     /**

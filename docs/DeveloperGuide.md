@@ -106,7 +106,7 @@ The `UI` component,
 
 Here's a (partial) class diagram of the `Logic` component:
 
-<puml src="diagrams/LogicClassDiagram.puml" width="550"/>
+<puml src="diagrams/LogicClassDiagram.puml"/>
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API
 call as an example.
@@ -136,11 +136,10 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 
 How the parsing works:
 
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a
-  placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse
-  the user command and create a `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a
-  `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
+* When called upon to parse a user command, the `AddressBookParser` class creates a       `MultiArgCommandParser` (`MultiArg` is a
+  placeholder for the specific command with multiple arguments e.g., `AddCommandParser`) or `IndexArgCommandParser` (`IndexArg` is a placeholder for the specific command with an index as argument e.g., `DeleteCommandParser`)
+* The `MultiArgCommandParser` or `IndexArgCommandParser` uses the other classes shown above to parse the user command and create a `MultiArgCommand` object (e.g., `AddCommand`) or `IndexArgCommand` object (e.g., `DeleteCommand`) respectively which the `AddressBookParser` returns back as a `Command` object.
+* All `MultiArgCommandParser` or `IndexArgCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser`
   interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component

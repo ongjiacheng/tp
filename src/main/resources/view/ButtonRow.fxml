@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/17">
+    <HBox spacing="10" alignment="CENTER">
+        <Button styleClass="button-row" text="add" onAction="#handleCommandPartial" userData="add "/>
+        <Button styleClass="button-row" text="adds" onAction="#handleCommandPartial" userData="adds "/>
+        <Button styleClass="button-row" text="clear" onAction="#handleCommandFull" userData="clear"/>
+        <Button styleClass="button-row" text="delete" onAction="#handleCommandPartial" userData="delete "/>
+        <Button styleClass="button-row" text="edit" onAction="#handleCommandPartial" userData="edit "/>
+        <Button styleClass="button-row" text="exit" onAction="#handleCommandFull" userData="exit"/>
+        <Button styleClass="button-row" text="find" onAction="#handleCommandPartial" userData="find "/>
+        <Button styleClass="button-row" text="help" onAction="#handleCommandPartial" userData="help "/>
+        <Button styleClass="button-row" text="list" onAction="#handleCommandFull" userData="list"/>
+        <Button styleClass="button-row" text="open" onAction="#handleCommandFull" userData="open"/>
+        <Button styleClass="button-row" text="tag" onAction="#handleCommandPartial" userData="tag "/>
+    </HBox>
+</StackPane>

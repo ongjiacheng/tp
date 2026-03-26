@@ -36,6 +36,9 @@ public class MainWindow extends UiPart<Stage> {
     private HelpWindow helpWindow;
 
     @FXML
+    private StackPane buttonRowPlaceholder;
+
+    @FXML
     private StackPane commandBoxPlaceholder;
 
     @FXML
@@ -121,6 +124,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        ButtonRow buttonRow = new ButtonRow();
+        buttonRow.setCommandBox(commandBox);
+        buttonRowPlaceholder.getChildren().add(buttonRow.getRoot());
     }
 
     /**
@@ -173,6 +180,7 @@ public class MainWindow extends UiPart<Stage> {
      * @see seedu.address.logic.Logic#execute(String)
      */
     private CommandResult executeCommand(String commandText) throws CommandException, ParseException {
+        assert commandText != null;
         try {
             CommandResult commandResult = logic.execute(commandText);
             logger.info("Result: " + commandResult.getFeedbackToUser());

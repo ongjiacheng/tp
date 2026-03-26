@@ -5,9 +5,9 @@ import static java.util.Objects.requireNonNull;
 import java.util.List;
 
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Supplier;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -16,8 +16,8 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
+    private Index nextFavouriteIndex = Index.fromZeroBased(0);
     private final UniquePersonList persons;
-
 
     /*
      * The 'unusual' code block below is a non-static initialization block, sometimes used to avoid duplication
@@ -50,6 +50,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.persons.setPersons(persons);
     }
 
+    public void setNextFavouriteIndex(List<Person> persons) {
+        int favouritePersonCount = countFavouritePersons(persons);
+        this.nextFavouriteIndex = Index.fromZeroBased(favouritePersonCount);
+    }
+
+    private int countFavouritePersons(List<Person> persons) {
+        return (int) persons.stream()
+                .filter(person -> person.isFavourite())
+                .count();
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -57,6 +68,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
 
         setPersons(newData.getPersonList());
+        setNextFavouriteIndex(newData.getPersonList());
     }
 
     //// person-level operations
@@ -83,6 +95,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     public void setPerson(Person target, Person editedPerson) {
+        assert target.isFavourite() == editedPerson.isFavourite()
+                : "Modifying commands should not change favourite status";
+
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
@@ -94,6 +109,39 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    /**
+     * Sets {@code target} as favourite and moves it to the favourites list.
+     */
+    public void setPersonAsFavourite(Person target) {
+        requireNonNull(target);
+
+        assert persons.asUnmodifiableObservableList().indexOf(target) >= nextFavouriteIndex.getZeroBased()
+                : "Person must not be in favourites list";
+        persons.movePerson(target, nextFavouriteIndex);
+        assert persons.contains(target);
+
+        nextFavouriteIndex.increment();
+
+        persons.setPerson(target, target.createFavouritePerson());
+    }
+
+    /**
+     * Sets {@code target} as not favourite and removes it from the favourites list.
+     */
+    public void unsetPersonAsFavourite(Person target) {
+        requireNonNull(target);
+
+        assert persons.asUnmodifiableObservableList().indexOf(target) < nextFavouriteIndex.getZeroBased()
+                : "Person must be in favourites list";
+        assert nextFavouriteIndex.getZeroBased() != 0;
+        nextFavouriteIndex.decrement();
+
+        persons.movePerson(target, nextFavouriteIndex);
+        assert persons.contains(target);
+
+        persons.setPerson(target, target.createNotFavouritePerson());
     }
 
     //// util methods

@@ -50,6 +50,25 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
+     * Inserts custom text into the command box at the cursor location.
+     * @param command The text to be inserted.
+     */
+    public void insertCommand(String command) {
+        commandTextField.appendText(command);
+        commandTextField.requestFocus();
+        commandTextField.positionCaret(commandTextField.getText().length());
+    }
+
+    /**
+     * Runs command immediately.
+     * @param command The text to be run.
+     */
+    public void runCommand(String command) {
+        commandTextField.setText(command);
+        handleCommandEntered();
+    }
+
+    /**
      * Sets the command box style to use the default style.
      */
     private void setStyleToDefault() {

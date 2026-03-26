@@ -40,6 +40,13 @@
           </padding>
         </StackPane>
 
+        <StackPane VBox.vgrow="NEVER" fx:id="buttonRowPlaceholder"
+                   style="-fx-background-color: #1e0808; -fx-border-color: #5a1a1a; -fx-border-width: 0 0 1 0;">
+          <padding>
+            <Insets top="5" right="10" bottom="5" left="10" />
+          </padding>
+        </StackPane>
+
         <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder"
                    style="-fx-background-color: #1e0808; -fx-border-color: #5a1a1a; -fx-border-width: 0 0 1 0;"
                    minHeight="100" prefHeight="100" maxHeight="100">

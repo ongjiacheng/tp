@@ -6,4 +6,3 @@
 <StackPane styleClass="stack-pane" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <TextField fx:id="commandTextField" onAction="#handleCommandEntered" promptText="Enter command here..."
              style="-fx-background-color: #1e0808; -fx-border-color: #4a1a1a; -fx-border-width: 0 0 1 0; -fx-text-fill: #f0f0f0; -fx-prompt-text-fill: #888888;"/></StackPane>
-
