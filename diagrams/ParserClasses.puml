@@ -6,30 +6,15 @@ skinparam classBackgroundColor LOGIC_COLOR
 
 Class "{abstract}\nCommand" as Command
 
-Class AddCommand
-Class AddSupplierCommand
-Class EditCommand
-Class DeleteCommand
-Class FindCommand
-Class TagCommand
-Class OpenCommand
-Class UndoCommand
-Class RedoCommand
-Class RemarkCommand
-Class FavCommand
+Class MultiArgCommand
+Class IndexArgCommand
 
 package "Parser classes" {
   Class "<<interface>>\nParser" as Parser
   Class AddressBookParser
 
-  Class AddCommandParser
-  Class AddSupplierCommandParser
-  Class EditCommandParser
-  Class DeleteCommandParser
-  Class FindCommandParser
-  Class TagCommandParser
-  Class RemarkCommandParser
-  Class FavCommandParser
+  Class MultiArgCommandParser
+  Class IndexArgCommandParser
 
   Class CliSyntax
   Class ParserUtil
@@ -42,68 +27,28 @@ Class HiddenOutside #FFFFFF
 HiddenOutside ..> AddressBookParser
 
 ' AddressBookParser creates the relevant command parser (for commands that need parsing)
-AddressBookParser .down.> AddCommandParser : <<create>>
-AddressBookParser .down.> AddSupplierCommandParser : <<create>>
-AddressBookParser .down.> EditCommandParser : <<create>>
-AddressBookParser .down.> DeleteCommandParser : <<create>>
-AddressBookParser .down.> FindCommandParser : <<create>>
-AddressBookParser .down.> TagCommandParser : <<create>>
-AddressBookParser .down.> RemarkCommandParser : <<create>>
-AddressBookParser .down.> FavCommandParser : <<create>>
+AddressBookParser .down.> MultiArgCommandParser : <<create>>
+AddressBookParser .down.> IndexArgCommandParser : <<create>>
 
 ' AddressBookParser uses Command (returns Command)
 AddressBookParser ..> Command : <<use>>
 
 ' Each concrete parser creates a Command
-AddCommandParser ..> AddCommand : <<create>>
-AddSupplierCommandParser ..> AddSupplierCommand : <<create>>
-EditCommandParser ..> EditCommand : <<create>>
-DeleteCommandParser ..> DeleteCommand : <<create>>
-FindCommandParser ..> FindCommand : <<create>>
-TagCommandParser ..> TagCommand : <<create>>
-RemarkCommandParser ..> RemarkCommand : <<create>>
-FavCommandParser ..> FavCommand : <<create>>
+MultiArgCommandParser ..> MultiArgCommand : <<create>>
+IndexArgCommandParser ..> IndexArgCommand : <<create>>
 
 ' Parsers implement Parser interface
-AddCommandParser .up.|> Parser
-AddSupplierCommandParser .up.|> Parser
-EditCommandParser .up.|> Parser
-DeleteCommandParser .up.|> Parser
-FindCommandParser .up.|> Parser
-TagCommandParser .up.|> Parser
-RemarkCommandParser .up.|> Parser
-FavCommandParser .up.|> Parser
+MultiArgCommandParser .up.|> Parser
+IndexArgCommandParser .up.|> Parser
 
 ' Shared parsing utilities used by parsers
-AddCommandParser ..> ArgumentMultimap
-AddCommandParser ..> ArgumentTokenizer
-AddCommandParser ..> CliSyntax
-AddCommandParser ..> ParserUtil
 
-AddSupplierCommandParser ..> ArgumentMultimap
-AddSupplierCommandParser ..> ArgumentTokenizer
-AddSupplierCommandParser ..> CliSyntax
-AddSupplierCommandParser ..> ParserUtil
+MultiArgCommandParser ..> ArgumentMultimap
+MultiArgCommandParser ..> ArgumentTokenizer
+MultiArgCommandParser ..> CliSyntax
+MultiArgCommandParser ..> ParserUtil
 
-EditCommandParser ..> ArgumentMultimap
-EditCommandParser ..> ArgumentTokenizer
-EditCommandParser ..> CliSyntax
-EditCommandParser ..> ParserUtil
-
-DeleteCommandParser ..> ParserUtil
-FindCommandParser ..> ParserUtil
-
-TagCommandParser ..> ArgumentMultimap
-TagCommandParser ..> ArgumentTokenizer
-TagCommandParser ..> CliSyntax
-TagCommandParser ..> ParserUtil
-
-RemarkCommandParser ..> ArgumentMultimap
-RemarkCommandParser ..> ArgumentTokenizer
-RemarkCommandParser ..> CliSyntax
-RemarkCommandParser ..> ParserUtil
-
-FavCommandParser ..> ParserUtil
+IndexArgCommandParser ..> ParserUtil
 
 ArgumentTokenizer .left.> ArgumentMultimap
 CliSyntax ..> Prefix
@@ -111,16 +56,7 @@ ParserUtil .down.> Prefix
 ArgumentTokenizer .down.> Prefix
 
 ' Commands extend Command
-AddCommand -up-|> Command
-AddSupplierCommand -up-|> Command
-EditCommand -up-|> Command
-DeleteCommand -up-|> Command
-FindCommand -up-|> Command
-TagCommand -up-|> Command
-OpenCommand -up-|> Command
-UndoCommand -up-|> Command
-RedoCommand -up-|> Command
-RemarkCommand -up-|> Command
-FavCommand -up-|> Command
+MultiArgCommand -up-|> Command
+IndexArgCommand -up-|> Command
 
 @enduml
