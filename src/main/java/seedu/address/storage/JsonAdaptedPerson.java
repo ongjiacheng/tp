@@ -31,6 +31,7 @@ class JsonAdaptedPerson {
     private final String email;
     private final String address;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
+    private final String isFavourite;
     private final String openingHours;
     private final String alternativeContact;
 
@@ -42,6 +43,7 @@ class JsonAdaptedPerson {
                              @JsonProperty("name") String name, @JsonProperty("phone") String phone,
                              @JsonProperty("email") String email, @JsonProperty("address") String address,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
+                             @JsonProperty("isFavourite") String isFavourite,
                              @JsonProperty("openingHours") String openingHours,
                              @JsonProperty("alternativeContact") String alternativeContact) {
         this.personType = personType;
@@ -52,6 +54,7 @@ class JsonAdaptedPerson {
         if (tags != null) {
             this.tags.addAll(tags);
         }
+        this.isFavourite = isFavourite;
         this.openingHours = openingHours;
         this.alternativeContact = alternativeContact;
     }
@@ -67,6 +70,7 @@ class JsonAdaptedPerson {
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+        isFavourite = Boolean.toString(source.isFavourite());
 
         if (source instanceof Supplier supplier) {
             openingHours = supplier.getOpeningHours();
@@ -124,6 +128,11 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
+        if (isFavourite == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "isFavourite"));
+        }
+        final boolean modelIsFavourite = Boolean.valueOf(isFavourite);
+
         if ("Supplier".equals(personType)) {
             if (openingHours == null) {
                 throw new IllegalValueException("Supplier must have opening hours");
@@ -132,9 +141,9 @@ class JsonAdaptedPerson {
                     ? new Phone(alternativeContact)
                     : null;
             return new Supplier(modelName, modelPhone, modelEmail,
-                    modelAddress, modelTags, openingHours, modelAltContact);
+                    modelAddress, modelTags, modelIsFavourite, openingHours, modelAltContact);
         } else {
-            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags);
+            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags, modelIsFavourite);
         }
 
     }

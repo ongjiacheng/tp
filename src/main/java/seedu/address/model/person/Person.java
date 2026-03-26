@@ -16,7 +16,6 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
-
     // Identity fields
     private final Name name;
     private final Phone phone;
@@ -25,10 +24,11 @@ public class Person {
     // Data field
     private final Address address;
     private final Set<Tag> tags = new HashSet<>();
-
+    private final boolean isFavourite;
 
     /**
-     * Constructor for Person.
+     * Constructs a {@code Person} with the given details.
+     * Person is not favourite by default.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -37,7 +37,21 @@ public class Person {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.isFavourite = false;
+    }
 
+    /**
+     * Constructs a {@code Person} with the given details.
+     * Specifies whether person is favourite or not.
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, boolean isFavourite) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.isFavourite = isFavourite;
     }
 
     public String getPersonType() {
@@ -62,6 +76,26 @@ public class Person {
 
     public boolean isOpen() {
         return false;
+    }
+
+    public boolean isFavourite() {
+        return isFavourite;
+    }
+
+    /**
+     * Returns a {@code Person} with identical information, but is favourite.
+     */
+    public Person createFavouritePerson() {
+        boolean isFavourite = true;
+        return new Person(this.name, this.phone, this.email, this.address, this.tags, isFavourite);
+    }
+
+    /**
+     * Return a {@code Person} with identical information, but is not favourite.
+     */
+    public Person createNotFavouritePerson() {
+        boolean isFavourite = false;
+        return new Person(this.name, this.phone, this.email, this.address, this.tags, isFavourite);
     }
 
     /**

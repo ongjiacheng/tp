@@ -42,9 +42,9 @@ public class PersonListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                if (person instanceof Supplier supplier){
+                if (person instanceof Supplier supplier) {
                     setGraphic(new SupplierCard(supplier, getIndex() + 1).getRoot());
-                } else{
+                } else {
                     setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
                 }
             }

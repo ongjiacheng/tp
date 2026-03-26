@@ -201,6 +201,28 @@ public class ModelManager implements Model {
         addressBook.setPerson(target, editedPerson);
     }
 
+    //=========== Favourites  ================================================================================
+
+    /**
+     * Sets the given person as favourite and moves it to the favourites list.
+     *
+     * @param target Person to set as favourite
+     */
+    @Override
+    public void setPersonAsFavourite(Person target) {
+        requireAllNonNull(target);
+        addressBook.setPersonAsFavourite(target);
+    }
+
+    /**
+     * Sets the given person as not favourite and removes it from the favourites list.
+     */
+    @Override
+    public void unsetPersonAsFavourite(Person target) {
+        requireAllNonNull(target);
+        addressBook.unsetPersonAsFavourite(target);
+    }
+
     //=========== Undo / Redo ================================================================================
 
     /**

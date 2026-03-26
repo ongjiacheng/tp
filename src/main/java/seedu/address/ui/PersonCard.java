@@ -4,13 +4,11 @@ import java.util.Comparator;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Supplier;
-
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -44,6 +42,8 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private VBox typeBadge;
     @FXML
+    private ImageView favouriteIcon;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -59,6 +59,7 @@ public class PersonCard extends UiPart<Region> {
         email.setText(person.getEmail().value);
         typeBadge.setVisible(false);
         typeBadge.setManaged(false);
+        favouriteIcon.setVisible(person.isFavourite());
         openingHours.setVisible(false);
 
         person.getTags().stream()
