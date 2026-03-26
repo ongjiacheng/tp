@@ -126,7 +126,7 @@ public class Supplier extends Person {
      * Returns time left.
      * @return Time left as a string representation.
      */
-    public String timeLeft() {
+    public String getTimeLeft() {
         LocalTime now = LocalTime.now();
         Duration duration = Duration.between(now, closeTime);
 
