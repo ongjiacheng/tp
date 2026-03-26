@@ -105,8 +105,8 @@
     },
     {
       "src": "UserGuide.md",
+      "title": "User Guide",
       "headings": {
-        "layout-default-md-title-and-quot-user-guide-and-quot-pagenav-3": "layout: default.md\ntitle: &quot;User Guide&quot;\npageNav: 3",
         "maladdress-user-guide": "MALAddress User Guide",
         "quick-start": "Quick start",
         "features": "Features",
@@ -117,8 +117,12 @@
         "listing-all-contacts-list": "Listing all contacts : list",
         "editing-a-contact-edit": "Editing a contact : edit",
         "finding-contacts-find": "Finding contacts: find",
-        "tagging-a-contact-as-customer-supplier-tag": "Tagging a contact as customer/supplier: tag",
+        "tagging-a-contact-tag": "Tagging a contact: tag",
         "listing-currently-available-suppliers-open": "Listing currently available suppliers : open",
+        "adding-updating-a-remark-remark": "Adding/Updating a Remark: remark",
+        "marking-a-contact-as-favourite-fav": "Marking a Contact as Favourite: fav",
+        "undoing-the-last-action-undo": "Undoing the Last Action: undo",
+        "redoing-the-last-undone-action-redo": "Redoing the Last Undone Action: redo",
         "deleting-a-contact-delete": "Deleting a contact : delete",
         "saving-the-data": "Saving the data",
         "editing-the-data-file": "Editing the data file",
