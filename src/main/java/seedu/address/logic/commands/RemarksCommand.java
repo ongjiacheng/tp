@@ -17,7 +17,7 @@ import seedu.address.model.person.Supplier;
  * Replaces the remarks to an existing person in the address book.
  *
  * <p>The target person is identified using the index shown in the currently displayed person list.
- * The person's existing remarks will be overwritten by the remarks 
+ * The person's existing remarks will be overwritten by the remarks
  * provided in the command.</p>
  */
 public class RemarksCommand extends Command {
@@ -59,32 +59,30 @@ public class RemarksCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-
-
         Person personToEdit = lastShownList.get(index.getZeroBased());
-	Person remarkedPerson;
+        Person remarkedPerson;
 
-	if (personToEdit instanceof Supplier supplier) {
-            remarkedPerson = new Supplier(
-                    supplier.getName(),
-                    supplier.getPhone(),
-                    supplier.getEmail(),
-                    supplier.getAddress(),
-		    remarks,
-                    supplier.getTags(),
-                    supplier.getOpeningHours(),
-                    supplier.getAlternativeContact()
-            );
-	} else {
-            remarkedPerson = new Person(
-                    personToEdit.getName(),
-                    personToEdit.getPhone(),
-                    personToEdit.getEmail(),
-                    personToEdit.getAddress(),
-		    remarks,
-                    personToEdit.getTags()
-            );
-	}
+        if (personToEdit instanceof Supplier supplier) {
+                remarkedPerson = new Supplier(
+                        supplier.getName(),
+                        supplier.getPhone(),
+                        supplier.getEmail(),
+                        supplier.getAddress(),
+                        remarks,
+                        supplier.getTags(),
+                        supplier.getOpeningHours(),
+                        supplier.getAlternativeContact()
+                );
+        } else {
+                remarkedPerson = new Person(
+                        personToEdit.getName(),
+                        personToEdit.getPhone(),
+                        personToEdit.getEmail(),
+                        personToEdit.getAddress(),
+                        remarks,
+                        personToEdit.getTags()
+                );
+        }
 
         // Same duplicate check pattern as EditCommand
         if (!personToEdit.isSamePerson(remarkedPerson) && model.hasPerson(remarkedPerson)) {

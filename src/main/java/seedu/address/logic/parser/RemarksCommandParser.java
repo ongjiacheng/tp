@@ -30,7 +30,7 @@ public class RemarksCommandParser implements Parser<RemarksCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_REMARKS);
         Collection<String> remarksCollection = argMultimap.getAllValues(PREFIX_REMARKS);
-	String remarks = remarksCollection.isEmpty() 
+	String remarks = remarksCollection.isEmpty()
 	? ""
 	: remarksCollection.iterator().next();
 
