@@ -41,8 +41,10 @@ class JsonAdaptedPerson {
      */
     @JsonCreator
     public JsonAdaptedPerson(@JsonProperty("personType") String personType,
-                             @JsonProperty("name") String name, @JsonProperty("phone") String phone,
-                             @JsonProperty("email") String email, @JsonProperty("address") String address,
+                             @JsonProperty("name") String name,
+                             @JsonProperty("phone") String phone,
+                             @JsonProperty("email") String email,
+                             @JsonProperty("address") String address,
                              @JsonProperty("remarks") String remarks,
                              @JsonProperty("tags") List<JsonAdaptedTag> tags,
                              @JsonProperty("isFavourite") String isFavourite,
@@ -53,14 +55,17 @@ class JsonAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
+
         if (tags != null) {
             this.tags.addAll(tags);
         }
-	      this.remarks = remarks;
+
+        this.remarks = remarks;
         this.isFavourite = isFavourite;
         this.openingHours = openingHours;
         this.alternativeContact = alternativeContact;
     }
+
     /**
      * Converts a given {@code Person} into this class for Jackson use.
      */
@@ -70,10 +75,12 @@ class JsonAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
-	remarks = source.getRemarks();
+        remarks = source.getRemarks();
+
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
+
         isFavourite = Boolean.toString(source.isFavourite());
 
         if (source instanceof Supplier supplier) {
@@ -99,7 +106,8 @@ class JsonAdaptedPerson {
         }
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
         }
         if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -107,7 +115,8 @@ class JsonAdaptedPerson {
         final Name modelName = new Name(name);
 
         if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Phone.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
@@ -115,7 +124,8 @@ class JsonAdaptedPerson {
         final Phone modelPhone = new Phone(phone);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
@@ -123,21 +133,21 @@ class JsonAdaptedPerson {
         final Email modelEmail = new Email(email);
 
         if (address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
 
-	final String modelRemarks = remarks;
-
+        final String modelRemarks = remarks;
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
         if (isFavourite == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "isFavourite"));
         }
-        final boolean modelIsFavourite = Boolean.valueOf(isFavourite);
+        final boolean modelIsFavourite = Boolean.parseBoolean(isFavourite);
 
         if ("Supplier".equals(personType)) {
             if (openingHours == null) {
@@ -146,12 +156,12 @@ class JsonAdaptedPerson {
             Phone modelAltContact = alternativeContact != null
                     ? new Phone(alternativeContact)
                     : null;
+
             return new Supplier(modelName, modelPhone, modelEmail,
                     modelAddress, modelRemarks, modelTags, openingHours, modelAltContact);
-        } else {
-            return new Person(modelName, modelPhone, modelEmail, modelAddress, modelRemarks, modelTags, modelIsFavourite);
         }
 
+        return new Person(modelName, modelPhone, modelEmail,
+                modelAddress, modelRemarks, modelTags, modelIsFavourite);
     }
-
 }

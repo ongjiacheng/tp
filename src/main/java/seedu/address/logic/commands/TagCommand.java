@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -26,6 +27,8 @@ public class TagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Replaces the tags of the person identified "
             + "by the index number used in the displayed person list.\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_TAG + "TAG [" + PREFIX_TAG + "TAG]...\n"
             + "Example: " + COMMAND_WORD + " 3 " + PREFIX_TAG + "vegetable " + PREFIX_TAG + "fruits";
 
     public static final String MESSAGE_SUCCESS = "Updated tags for: %1$s";
@@ -33,13 +36,16 @@ public class TagCommand extends Command {
 
     private final Index index;
     private final Set<Tag> tags;
+
     /**
      * Creates a {@code TagCommand} that replaces the tags of the person at {@code index}.
      *
      * @param index Index of the person in the filtered person list whose tags will be replaced.
-     * @param tags  Tags to replace the person's existing tags with.
+     * @param tags Tags to replace the person's existing tags with.
      */
     public TagCommand(Index index, Set<Tag> tags) {
+        requireNonNull(index);
+        requireNonNull(tags);
         this.index = index;
         this.tags = tags;
     }
@@ -53,42 +59,16 @@ public class TagCommand extends Command {
      */
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
+        requireNonNull(model);
 
+        List<Person> lastShownList = model.getFilteredPersonList();
         if (index.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-
-
         Person personToEdit = lastShownList.get(index.getZeroBased());
-	Person taggedPerson;
+        Person taggedPerson = createTaggedPerson(personToEdit, tags);
 
-	if (personToEdit instanceof Supplier supplier) {
-            taggedPerson = new Supplier(
-                    supplier.getName(),
-                    supplier.getPhone(),
-                    supplier.getEmail(),
-                    supplier.getAddress(),
-		                supplier.getRemarks(),
-                    tags,
-                    supplier.isFavourite(),
-                    supplier.getOpeningHours(),
-                    supplier.getAlternativeContact()
-            );
-	} else {
-            taggedPerson = new Person(
-                    personToEdit.getName(),
-                    personToEdit.getPhone(),
-                    personToEdit.getEmail(),
-                    personToEdit.getAddress(),
-		                personToEdit.getRemarks(),
-                    tags,
-                    personToEdit.isFavourite()
-            );
-	}
-
-        // Same duplicate check pattern as EditCommand
         if (!personToEdit.isSamePerson(taggedPerson) && model.hasPerson(taggedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
@@ -97,6 +77,35 @@ public class TagCommand extends Command {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(String.format(MESSAGE_SUCCESS, Messages.format(taggedPerson)));
+    }
+
+    /**
+     * Creates the tagged version of {@code personToEdit}, preserving subtype-specific fields.
+     */
+    private static Person createTaggedPerson(Person personToEdit, Set<Tag> tags) {
+        if (personToEdit instanceof Supplier supplier) {
+            return new Supplier(
+                    supplier.getName(),
+                    supplier.getPhone(),
+                    supplier.getEmail(),
+                    supplier.getAddress(),
+                    supplier.getRemarks(),
+                    tags,
+                    supplier.isFavourite(),
+                    supplier.getOpeningHours(),
+                    supplier.getAlternativeContact()
+            );
+        }
+
+        return new Person(
+                personToEdit.getName(),
+                personToEdit.getPhone(),
+                personToEdit.getEmail(),
+                personToEdit.getAddress(),
+                personToEdit.getRemarks(),
+                tags,
+                personToEdit.isFavourite()
+        );
     }
 
     @Override

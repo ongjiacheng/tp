@@ -51,8 +51,10 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_TAG_NOT_ALLOWED = "Tags cannot be edited using edit. Use the tag command instead.";
-    public static final String MESSAGE_INCORRECT_TIME_FORMAT = "Opening hours should follow 'HHmm - HHmm' (e.g., 0900 - 1800).";
+    public static final String MESSAGE_TAG_NOT_ALLOWED =
+            "Tags cannot be edited using edit. Use the tag command instead.";
+    public static final String MESSAGE_INCORRECT_TIME_FORMAT =
+            "Opening hours should follow 'HHmm - HHmm' (e.g., 0900 - 1800).";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -160,7 +162,12 @@ public class EditCommand extends Command {
         private String openingHours;
 
         public EditPersonDescriptor() {}
-
+        /**
+         * Copy constructor.
+         * Creates a descriptor with the same field values as {@code toCopy}.
+         *
+         * @param toCopy Descriptor to copy from.
+         */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -204,11 +211,19 @@ public class EditCommand extends Command {
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
         }
-
+        /**
+         * Sets the opening hours for the edited person (suppliers only).
+         *
+         * @param openingHours Opening hours in format {@code HHmm - HHmm} (e.g., {@code 0900 - 1800}).
+         */
         public void setOpeningHours(String openingHours) {
             this.openingHours = openingHours;
         }
-
+        /**
+         * Returns the updated opening hours if provided.
+         *
+         * @return Optional containing the opening hours, or empty if not specified.
+         */
         public Optional<String> getOpeningHours() {
             return Optional.ofNullable(openingHours);
         }

@@ -90,8 +90,8 @@ public class Supplier extends Person {
     @Override
     public Person createFavouritePerson() {
         boolean isFavourite = true;
-        return new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(), this.getRemarks(), this.getTags(),
-                isFavourite, this.getOpeningHours(), this.alternativeContact);
+        return new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
+                this.getRemarks(), this.getTags(), isFavourite, this.getOpeningHours(), this.alternativeContact);
     }
 
     /**
@@ -100,8 +100,8 @@ public class Supplier extends Person {
     @Override
     public Person createNotFavouritePerson() {
         boolean isFavourite = false;
-        return new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(), this.getRemarks(), this.getTags(),
-                isFavourite, this.getOpeningHours(), this.alternativeContact);
+        return new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
+                this.getRemarks(), this.getTags(), isFavourite, this.getOpeningHours(), this.alternativeContact);
     }
 
     @Override

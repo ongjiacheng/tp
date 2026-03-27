@@ -32,7 +32,8 @@ public class Person {
      * Constructs a {@code Person} with the given details.
      * Person is not favourite by default.
      */
-    public Person(Name name, Phone phone, Email email, Address address, String remarks, Set<Tag> tags) {
+    public Person(Name name, Phone phone, Email email, Address address,
+                  String remarks, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, remarks, tags);
         this.name = name;
         this.phone = phone;
@@ -47,7 +48,8 @@ public class Person {
      * Constructs a {@code Person} with the given details.
      * Specifies whether person is favourite or not.
      */
-    public Person(Name name, Phone phone, Email email, Address address, String remarks, Set<Tag> tags, boolean isFavourite) {
+    public Person(Name name, Phone phone, Email email, Address address,
+                  String remarks, Set<Tag> tags, boolean isFavourite) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
