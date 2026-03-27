@@ -162,6 +162,7 @@ public class EditCommand extends Command {
         private String openingHours;
 
         public EditPersonDescriptor() {}
+
         /**
          * Copy constructor.
          * Creates a descriptor with the same field values as {@code toCopy}.
@@ -211,6 +212,7 @@ public class EditCommand extends Command {
         public Optional<Address> getAddress() {
             return Optional.ofNullable(address);
         }
+
         /**
          * Sets the opening hours for the edited person (suppliers only).
          *
@@ -219,6 +221,7 @@ public class EditCommand extends Command {
         public void setOpeningHours(String openingHours) {
             this.openingHours = openingHours;
         }
+
         /**
          * Returns the updated opening hours if provided.
          *
