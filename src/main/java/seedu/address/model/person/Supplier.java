@@ -15,7 +15,20 @@ import seedu.address.model.tag.Tag;
  */
 public class Supplier extends Person {
 
+    private enum Status {
+        CLOSED("closed"),
+        OPEN("until closing");
+
+        private final String value;
+        Status(String value) { this.value = value; }
+
+        @Override
+        public String toString() { return value; }
+    }
+
     private static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
+    private static final int MINUTES_PER_HOUR = 60;
+    private static final String TIME_LEFT_PREFIX = "%02d:%02d ";
 
     private final String openingHoursString;
     private final LocalTime openTime;
@@ -114,12 +127,12 @@ public class Supplier extends Person {
      */
     @Override
     public boolean isOpen() {
-        LocalTime now = LocalTime.now();
+        LocalTime currentTime = LocalTime.now();
 
-        boolean isAfterOpenTime = now.isAfter(this.openTime);
-        boolean isBeforeCloseTime = now.isBefore(this.closeTime);
+        boolean isAfterOpenTime = currentTime.isAfter(this.openTime);
+        boolean isBeforeCloseTime = currentTime.isBefore(this.closeTime);
 
-        return isAfterOpenTime & isBeforeCloseTime;
+        return isAfterOpenTime && isBeforeCloseTime;
     }
 
     /**
@@ -127,16 +140,16 @@ public class Supplier extends Person {
      * @return Time left as a string representation.
      */
     public String getTimeLeft() {
-        LocalTime now = LocalTime.now();
-        Duration duration = Duration.between(now, closeTime);
+        LocalTime currentTime = LocalTime.now();
+        Duration duration = Duration.between(currentTime, closeTime);
 
         if (duration.isNegative()) {
-            return "closed";
+            return Status.CLOSED.toString();
         }
 
         long hours = duration.toHours();
-        long minutes = duration.toMinutes() % 60;
+        long minutes = duration.toMinutes() % MINUTES_PER_HOUR;
 
-        return String.format("%02d:%02d until closing", hours, minutes);
+        return String.format(TIME_LEFT_PREFIX + Status.OPEN, hours, minutes);
     }
 }
