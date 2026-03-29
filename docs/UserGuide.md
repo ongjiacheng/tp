@@ -322,19 +322,21 @@ previous MALAddress home folder.
 
 ## Command summary
 
-|Action|Format, Examples|
-|-|-|
-|**Add**|`add n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]...` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`|
-|**Adds**|`adds n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] o/OPENING_HOURS [t/TAG]...`<br> e.g., `adds n/Ah Seng p/91234567 e/a@b.com a/Yishun o/0900 - 1800 t/vegetable`|
-|**List**|`list`|
-|**Find**|`find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find yishun vegetable`|
-|**Edit**|`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`<br> e.g., `edit 2 e/jameslee@example.com a/Blk 123 Clementi Rd`|
-|**Tag**|`tag INDEX t/TAG [t/TAG]...`<br> e.g., `tag 3 t/vegetable t/fruits`|
-|**Open**|`open`|
-|**Remark**|`remark INDEX r/REMARK`<br> e.g., `remark 3 r/always late`|
-|**Fav**|`fav INDEX`<br> e.g., `fav 2`|
-|**Undo**|`undo`|
-|**Redo**|`redo`|
-|**Delete**|`delete INDEX`<br> e.g., `delete 3`|
-|**Clear**|`clear`|
-|**Help**|`help`|
+| Action      | Format, Examples                                                                                                                                                     |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **Add**     | `add n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] [t/TAG]...` <br> e.g., `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney` |
+| **Adds**    | `adds n/NAME p/PHONE [e/EMAIL] [a/ADDRESS] o/OPENING_HOURS [t/TAG]...`<br> e.g., `adds n/Ah Seng p/91234567 e/a@b.com a/Yishun o/0900 - 1800 t/vegetable`            |
+| **List**    | `list`                                                                                                                                                               |
+| **Find**    | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find yishun vegetable`                                                                                                     |
+| **Edit**    | `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`<br> e.g., `edit 2 e/jameslee@example.com a/Blk 123 Clementi Rd`                                     |
+| **Tag**     | `tag INDEX t/TAG [t/TAG]...`<br> e.g., `tag 3 t/vegetable t/fruits`                                                                                                  |
+| **Open**    | `open`                                                                                                                                                               |
+| **Remarks** | `remarks INDEX r/REMARK`<br> e.g., `remarks 3 r/always late`                                                                                                         |
+| **Fav**     | `fav INDEX`<br> e.g., `fav 2`                                                                                                                                        |
+| **Unfav**   | `unfav INDEX` <br> e.g., `unfav 2`                                                                                                                                   |
+| **Undo**    | `undo`                                                                                                                                                               |
+| **Redo**    | `redo`                                                                                                                                                               |
+| **Delete**  | `delete INDEX`<br> e.g., `delete 3`                                                                                                                                  |
+| **Clear**   | `clear`                                                                                                                                                              |
+| **Help**    | `help`                                                                                                                                                               |
+| **Exit**    | `exit`                                                                                                                                                               |
