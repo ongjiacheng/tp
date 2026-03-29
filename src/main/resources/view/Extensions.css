@@ -24,4 +24,12 @@
     -fx-border-width: 2;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
+    -fx-padding: 0 0 0 0;
+
+    -fx-pref-tile-height: 35;
+    -fx-min-height: 35;
+    -fx-max-height: 35;
+    -fx-pref-tile-width: 70;
+    -fx-min-width: 70;
+    -fx-max-width: 70;
 }
