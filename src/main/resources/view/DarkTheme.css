@@ -184,6 +184,14 @@
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
+.scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-max-height: 55;
+    -fx-min-height: 55;
+    -fx-pref-height: 55;
+}
+
 .context-menu {
     -fx-background-color: derive(#1d1d1d, 50%);
 }
