@@ -19,6 +19,8 @@ Class Email
 Class Name
 Class Phone
 Class Tag
+Class Remarks
+Class Opening Hours
 
 Class I #FFFFFF
 }
@@ -41,6 +43,7 @@ Person *--> Name
 Person *--> Phone
 Person *--> Email
 Person *--> Address
+Person *--> Remarks
 Person *--> "*" Tag
 
 Person -[hidden]up--> I
