@@ -59,7 +59,7 @@ Note:
    `java -jar maladdress.jar`
 
 A GUI similar to the following should appear:
-[paste screenshot here: main UI]
+![Alt text](./images/UI_screenshot.png)
 
 ### Step 3: Understanding the Interface
 - Command Box: enter commands here.
@@ -73,7 +73,10 @@ A GUI similar to the following should appear:
 3. Check open suppliers:
    `open`
 
-[paste screenshot here: after adds + open]
+![Alt text](./images/UI_supplier.png)
+
+![Alt text](./images/open_command.png)
+
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -109,7 +112,7 @@ Format:
 
 Expected Output:
 A help window is displayed with a list of commands and formats.
-[paste screenshot here: help window]
+![Alt text](./images/help_command.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -139,10 +142,11 @@ Notes:
 
 Expected Output:
 The supplier appears in the contact list with opening hours and tags shown.
-[paste screenshot here: supplier added]
+
+![Alt text](./images/open_command.png)
 
 Example:
-`adds n/Ah Seng p/91234567 e/a@b.com a/Yishun o/0900 - 1800 t/vegetable`
+`adds n/Ah Seng p/91234567 e/a@b.com a/Yishun o/0900 - 2200 t/vegetable`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -174,7 +178,7 @@ Only matching contacts are displayed.
 Example:
 `find vegetable`
 
-[paste screenshot here: find results]
+![Alt text](./images/find_command.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -220,7 +224,7 @@ Run `list` (or `find ...`) so you can see the correct INDEX.
 Step 2:
 Run `tag INDEX t/...` to replace the tags.
 
-[paste screenshot here: after tagging]
+![Alt text](./images/tag_command.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -244,7 +248,7 @@ Add suppliers using `adds` with valid opening hours.
 Step 2:
 Run `open` to filter suppliers that are open now.
 
-[paste screenshot here: open results]
+![Alt text](./images/open_command.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -258,12 +262,12 @@ Expected Output:
 The selected contact’s remarks are updated.
 
 Example:
-`remarks 2 r/always late`
+`remarks 2 r/very expensive`
 
 To clear remarks:
 `remarks 2 r/`
 
-[paste screenshot here: after remarks]
+![Alt text](./images/remark_command.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -279,7 +283,7 @@ The contact is toggled as favourite (favourite indicator updates).
 Example:
 `fav 2`
 
-[paste screenshot here: favourite indicator]
+![Alt text](./images/fav_command.png)
 
 --------------------------------------------------------------------------------------------------------------------
 
