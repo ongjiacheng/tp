@@ -120,22 +120,35 @@ public class Supplier extends Person {
                 this.getRemarks(), this.getTags(), isFavourite, this.getOpeningHours(), this.alternativeContact);
     }
 
+    /**
+     * Returns Supplier as a String.
+     */
     @Override
     public String getPersonType() {
         return "Supplier";
     }
 
     /**
-     * Returns true if store is open.
+     * Returns the current local time.
      */
-    @Override
     public boolean isOpen() {
-        LocalTime currentTime = LocalTime.now();
+        return isOpen(LocalTime.now());
+    }
 
+    /**
+     * Returns true if store is open with currentTime passed in.
+     */
+    public boolean isOpen(LocalTime currentTime) {
         boolean isAfterOpenTime = currentTime.isAfter(this.openTime);
         boolean isBeforeCloseTime = currentTime.isBefore(this.closeTime);
 
-        return isAfterOpenTime && isBeforeCloseTime;
+        if (openTime.isBefore(closeTime)) {
+            // Normal case
+            return isAfterOpenTime && isBeforeCloseTime;
+        } else {
+            // Overnight case
+            return isAfterOpenTime || isBeforeCloseTime;
+        }
     }
 
     /**

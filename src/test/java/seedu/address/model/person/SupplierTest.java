@@ -12,6 +12,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalSuppliers.ALI;
 import static seedu.address.testutil.TypicalSuppliers.BEN;
+import static seedu.address.testutil.TypicalSuppliers.DENNIS;
+
+import java.time.LocalTime;
 
 import org.junit.jupiter.api.Test;
 
@@ -59,7 +62,11 @@ public class SupplierTest {
 
     @Test
     public void isOpen() {
-        assertTrue(ALI.isOpen());
+        assertTrue(ALI.isOpen(LocalTime.of(1, 0)));
+        assertTrue(DENNIS.isOpen(LocalTime.of(22, 12)));
+
+        assertFalse(BEN.isOpen(LocalTime.of(6, 59)));
+        assertFalse(BEN.isOpen(LocalTime.of(23, 1)));
     }
 
     @Test

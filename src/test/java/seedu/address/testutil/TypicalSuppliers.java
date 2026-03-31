@@ -24,6 +24,10 @@ public class TypicalSuppliers {
     public static final Supplier CHANG = new SupplierBuilder().withName("Chang Long").withPhone("81234567")
             .withEmail("changlong@example.com").withAddress("777 Simpang Terrace")
             .withOpeningHours("1200 - 1600").withAlternativeContact("87654321").build();
+    public static final Supplier DENNIS = new SupplierBuilder().withName("Dennis Schroder")
+            .withAddress("88 Woodlands Drive 50, #05-12").withEmail("diana@example.com")
+            .withPhone("87654321")
+            .withTags("nightMarket").withOpeningHours("2200 - 0200").withAlternativeContact("91234568").build();
 
     private TypicalSuppliers() {} // prevents instantiation
 
