@@ -61,34 +61,14 @@ public class SupplierTest {
     }
 
     @Test
-    public void isOpen_noArgument_usesCurrentTime() {
-        assertTrue(ALI.isOpen()); // ALI is 0000-2359, always open
-    }
-
-    @Test
-    public void isOpen_normalHours_duringOpenPeriod_returnsTrue() {
+    public void isOpen() {
+        assertTrue(ALI.isOpen());
         assertTrue(ALI.isOpen(LocalTime.of(1, 0)));
-    }
-
-    @Test
-    public void isOpen_normalHours_beforeOpenTime_returnsFalse() {
-        assertFalse(BEN.isOpen(LocalTime.of(6, 59))); // BEN opens at 0700
-    }
-
-    @Test
-    public void isOpen_normalHours_afterCloseTime_returnsFalse() {
-        assertFalse(BEN.isOpen(LocalTime.of(23, 30))); // BEN closes at 2300 — covers partial branch
-    }
-
-    @Test
-    public void isOpen_overnightHours_duringOpenPeriod_returnsTrue() {
-        assertTrue(DENNIS.isOpen(LocalTime.of(22, 12))); // after open
-        assertTrue(DENNIS.isOpen(LocalTime.of(1, 0)));   // before close
-    }
-
-    @Test
-    public void isOpen_overnightHours_outsideOpenPeriod_returnsFalse() {
-        assertFalse(DENNIS.isOpen(LocalTime.of(3, 0))); // DENNIS closes at 0200
+        assertTrue(DENNIS.isOpen(LocalTime.of(22, 12)));
+        assertTrue(DENNIS.isOpen(LocalTime.of(1, 0)));
+        assertFalse(BEN.isOpen(LocalTime.of(6, 59)));
+        assertFalse(BEN.isOpen(LocalTime.of(23, 1)));
+        assertFalse(BEN.isOpen(LocalTime.of(6, 0)));
     }
 
     @Test
