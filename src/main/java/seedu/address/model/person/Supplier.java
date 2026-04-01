@@ -20,10 +20,14 @@ public class Supplier extends Person {
         OPEN("until closing");
 
         private final String value;
-        Status(String value) { this.value = value; }
+        Status(String value) {
+            this.value = value;
+        }
 
         @Override
-        public String toString() { return value; }
+        public String toString() {
+            return value;
+        }
     }
 
     private static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
