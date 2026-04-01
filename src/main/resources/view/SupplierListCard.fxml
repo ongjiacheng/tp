@@ -94,7 +94,7 @@
                             <Insets top="8" right="8" bottom="4" left="8" />
                         </padding>
                         <Label fx:id="closingTimeLabel" text="\$timeLeft" styleClass="corner_label"
-                               style="-fx-text-fill: #c0392b; -fx-font-weight: bold;" />
+                               style="-fx-text-fill: #8e281d; -fx-font-weight: bold;" />
                     </VBox>
                     <ImageView fx:id="favouriteIcon" fitWidth="16" preserveRatio="true">
                         <image>
