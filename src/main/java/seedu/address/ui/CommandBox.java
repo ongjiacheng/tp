@@ -15,6 +15,7 @@ public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
     private static final String FXML = "CommandBox.fxml";
+    private static final int CLEAR_IF_FEWER_THAN_LETTERS = 7;
 
     private final CommandExecutor commandExecutor;
 
@@ -54,11 +55,24 @@ public class CommandBox extends UiPart<Region> {
      * @param command The text to be inserted.
      */
     public void insertCommand(String command) {
-        commandTextField.appendText(command);
+        String existing = commandTextField.getText();
+
+        if (countWords(existing) < CLEAR_IF_FEWER_THAN_LETTERS) {
+            commandTextField.setText(command); // replace if current text is command
+        } else {
+            commandTextField.appendText(command);
+        }
         commandTextField.requestFocus();
         commandTextField.positionCaret(commandTextField.getText().length());
     }
-
+    /**
+     * Counts the number of words in the text
+     * @param text The text to be inserted.
+     */
+    private static int countWords(String text) {
+        String trimmed = text.trim();
+        return trimmed.isEmpty() ? 0 : trimmed.split("\\s+").length;
+    }
     /**
      * Runs command immediately.
      * @param command The text to be run.
