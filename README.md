@@ -5,14 +5,16 @@
 * MALAdress helps hawker stall owners quickly store, update and retrieve supplier and regular-customer contacts in one place, optimized for fast CLI workflows during busy service hours. Reduce missed calls, supplier mix-ups, and time wasted digging through chat apps or paper notes.<br>
 
 * Features:
-  * Add contacts
-  * List contacts
-  * Find contacts
-  * Edit contacts
+  * Add customers / suppliers
+  * Clear all contacts
   * Delete contacts
-  * Tag as customer / supplier
-  * List all currently available supplier
-  * Find help
+  * Edit contacts
+  * Favourite / unfavourite contacts
+  * Find contacts
+  * List contacts
+  * List all currently available suppliers
+  * Undo / redo actions
+  * Set remarks / tags to contacts
 
 * Acknowledgement:
 This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
