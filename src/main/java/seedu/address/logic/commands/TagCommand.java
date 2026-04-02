@@ -73,6 +73,7 @@ public class TagCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
 
+		model.saveStateForUndo();
         model.setPerson(personToEdit, taggedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 

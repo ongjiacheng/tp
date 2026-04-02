@@ -63,6 +63,7 @@ public class RemarksCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
+		model.saveStateForUndo();
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person remarkedPerson = createRemarkedPerson(personToEdit, remarks);
 
