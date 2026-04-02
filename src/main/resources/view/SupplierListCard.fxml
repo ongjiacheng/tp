@@ -80,7 +80,7 @@
                 <VBox spacing="6" alignment="TOP_RIGHT">
                     <VBox fx:id="typeBadge"
                           alignment="CENTER"
-                          style="-fx-background-color: #7dd3c0; -fx-background-radius: 4; -fx-border-radius: 4;">
+                          style="-fx-background-color: #7dd3c0; -fx-background-radius: 4; -fx-border-radius: 4; -fx-min-width: 70">
                         <padding>
                             <Insets top="4" right="8" bottom="4" left="8" />
                         </padding>
@@ -89,7 +89,7 @@
                     </VBox>
                     <VBox fx:id="closingTimeBadge"
                           alignment="CENTER"
-                          style="-fx-background-color: #FF8C00; -fx-background-radius: 4; -fx-border-radius: 4;">
+                          style="-fx-background-color: #FF8C00; -fx-background-radius: 4; -fx-border-radius: 4; -fx-min-width: 70">
                         <padding>
                             <Insets top="8" right="8" bottom="4" left="8" />
                         </padding>
