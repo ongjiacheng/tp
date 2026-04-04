@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_VALUE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
@@ -27,6 +28,8 @@ import seedu.address.model.tag.Tag;
  */
 public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
 
+    private static final String EMPTY_REMARKS = "";
+
     @Override
     public AddSupplierCommand parse(String args) throws ParseException {
         requireNonNull(args);
@@ -37,13 +40,13 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_ADDRESS, PREFIX_PHONE,
                 PREFIX_EMAIL) || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddSupplierCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSupplierCommand.MESSAGE_USAGE));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_OPENING_HOURS)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddSupplierCommand.MESSAGE_OPENING_HOURS_REQUIRED + AddSupplierCommand.MESSAGE_USAGE));
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSupplierCommand.MESSAGE_OPENING_HOURS_REQUIRED));
         }
 
         if (!arePrefixesPresent(argMultimap, PREFIX_TAG)) {
@@ -62,12 +65,14 @@ public class AddSupplierCommandParser implements Parser<AddSupplierCommand> {
         Set<Tag> tagSet = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
         try {
-            Supplier supplier = new Supplier(name, phone, email, address, "", tagSet, openingHours, phone);
+            Supplier supplier = new Supplier(name, phone, email, address, EMPTY_REMARKS, tagSet, openingHours, phone);
             return new AddSupplierCommand(supplier);
+        } catch (IllegalArgumentException iae) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddSupplierCommand.MESSAGE_INCORRECT_TIME_FORMAT));
         } catch (DateTimeException dte) {
-            throw new ParseException(AddSupplierCommand.MESSAGE_INCORRECT_TIME_FORMAT
-                    + "\n"
-                    + AddSupplierCommand.MESSAGE_USAGE);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_VALUE, AddSupplierCommand.MESSAGE_INVALID_TIME));
         }
     }
 

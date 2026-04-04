@@ -31,6 +31,7 @@ public class Supplier extends Person {
     }
 
     private static final DateTimeFormatter INPUT_TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
+    private static final String VALID_OPENING_HOURS_FORMAT = "^[0-9]{4} - [0-9]{4}$";
     private static final int MINUTES_PER_HOUR = 60;
     private static final String TIME_LEFT_PREFIX = "%02d:%02d ";
 
@@ -42,9 +43,13 @@ public class Supplier extends Person {
     /**
      * Constructs a {@code Supplier} with the given details.
      * Supplier is not favourite by default.
+     *
+     * @throws IllegalArgumentException If opening hours does not follow 'HHmm - HHmm' format
+     * @throws DateTimeParseException If opening hours have invalid values not between 0000 and 2359
      */
     public Supplier(Name name, Phone phone, Email email, Address address, String remarks,
-                    Set<Tag> tags, String openingHours, Phone alternativeContact) throws DateTimeParseException {
+            Set<Tag> tags, String openingHours, Phone alternativeContact)
+                    throws IllegalArgumentException, DateTimeParseException {
         super(name, phone, email, address, remarks, tags);
         requireAllNonNull(openingHours);
         this.openingHoursString = openingHours;
@@ -59,9 +64,13 @@ public class Supplier extends Person {
     /**
      * Constructs a {@code Supplier} with the given details.
      * Specifies whether supplier is favourite or not.
+     *
+     * @throws IllegalArgumentException If {@code openingHours} does not follow 'HHmm - HHmm' format
+     * @throws DateTimeParseException If {@code openingHours} have invalid values not between 0000 and 2400
      */
-    public Supplier(Name name, Phone phone, Email email, Address address, String remarks, Set<Tag> tags,
-            boolean isFavourite, String openingHours, Phone alternativeContact) throws DateTimeParseException {
+    public Supplier(Name name, Phone phone, Email email, Address address, String remarks,
+            Set<Tag> tags, boolean isFavourite, String openingHours, Phone alternativeContact)
+                    throws IllegalArgumentException, DateTimeParseException {
         super(name, phone, email, address, remarks, tags, isFavourite);
         requireAllNonNull(openingHours);
         this.openingHoursString = openingHours;
@@ -73,11 +82,20 @@ public class Supplier extends Person {
         this.alternativeContact = alternativeContact;
     }
 
-    private LocalTime[] parseTime(String openingHours) throws DateTimeParseException {
+    private LocalTime[] parseTime(String openingHours) throws IllegalArgumentException, DateTimeParseException {
+        if (!isValidFormat(openingHours)) {
+            throw new IllegalArgumentException();
+        }
         String[] splitOpeningHours = openingHours.split(" - ");
+
         LocalTime openTime = LocalTime.parse(splitOpeningHours[0], INPUT_TIME_FORMAT);
         LocalTime closeTime = LocalTime.parse(splitOpeningHours[1], INPUT_TIME_FORMAT);
+
         return new LocalTime[]{openTime, closeTime};
+    }
+
+    private boolean isValidFormat(String openingHours) {
+        return openingHours.matches(VALID_OPENING_HOURS_FORMAT);
     }
 
     /**
@@ -110,8 +128,17 @@ public class Supplier extends Person {
     @Override
     public Person createFavouritePerson() {
         boolean isFavourite = true;
-        return new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
-                this.getRemarks(), this.getTags(), isFavourite, this.getOpeningHours(), this.alternativeContact);
+        Supplier supplier;
+
+        try {
+            supplier = new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
+                    this.getRemarks(), this.getTags(), isFavourite, this.getOpeningHours(), this.alternativeContact);
+        } catch (IllegalArgumentException iae) {
+            assert false : "openingHoursString should already have valid format";
+            supplier = null;
+        }
+
+        return supplier;
     }
 
     /**
@@ -120,8 +147,17 @@ public class Supplier extends Person {
     @Override
     public Person createNotFavouritePerson() {
         boolean isFavourite = false;
-        return new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
-                this.getRemarks(), this.getTags(), isFavourite, this.getOpeningHours(), this.alternativeContact);
+        Supplier supplier;
+
+        try {
+            supplier = new Supplier(this.getName(), this.getPhone(), this.getEmail(), this.getAddress(),
+                    this.getRemarks(), this.getTags(), isFavourite, this.getOpeningHours(), this.alternativeContact);
+        } catch (IllegalArgumentException iae) {
+            assert false : "openingHoursString should already have valid format";
+            supplier = null;
+        }
+
+        return supplier;
     }
 
     /**
