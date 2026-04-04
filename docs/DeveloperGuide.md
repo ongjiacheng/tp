@@ -36,8 +36,7 @@ Refer to the guide _Setting up and getting started_ (SettingUp.md).
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
 
-The Architecture Diagram above explains the high-level design of MALAddress.
-
+The Architecture Diagram above illustrates the high-level design of MALAddress, which follows a modular, layered architecture adapted from AB3. This separation of concerns improves maintainability, testability, and extensibility of the system.
 **Main components of the architecture**
 
 **Main** (classes `Main` and `MainApp`) is in charge of app launch and shut down.
