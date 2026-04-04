@@ -12,6 +12,7 @@ import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
+import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.PersonBuilder;
@@ -22,6 +23,18 @@ public class PersonTest {
     public void asObservableList_modifyList_throwsUnsupportedOperationException() {
         Person person = new PersonBuilder().build();
         assertThrows(UnsupportedOperationException.class, () -> person.getTags().remove(0));
+    }
+
+    @Test
+    public void isPersonType(){
+        assertTrue(ALICE.getPersonType().equals("Person"));
+        assertFalse(ALICE.getPersonType().equals("Supplier"));
+    }
+
+    @Test
+    public void isSameName(){
+        assertTrue(ALICE.getName().toString().equals("Alice Pauline"));
+        assertFalse(ALICE.getName().toString().equals("Bob"));
     }
 
     @Test
