@@ -206,6 +206,7 @@ These users typically:
 - prefer fast, keyboard-based workflows
 - need quick access to supplier availability
 - coordinate frequently with multiple suppliers during peak hours
+- need to note down various information of people
 
 #### Value proposition
 MALAddress helps users manage supplier contacts efficiently during daily operations by enabling quick keyboard-based access to contact details, checking supplier availability before contacting to prevent disturbances during off working hours, and reducing the risk of stock shortages through faster, more reliable contact management.
@@ -280,7 +281,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Preconditions:** Suppliers have correctly formatted opening hours.
 
-**Guarantees:** Display is filtered to open suppliers.
+**Guarantees:** Display is filtered to open suppliers. 
 
 **MSS:**
 1. User enters `open`.
