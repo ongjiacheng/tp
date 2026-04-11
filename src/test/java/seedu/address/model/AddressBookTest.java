@@ -7,6 +7,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -76,6 +78,35 @@ public class AddressBookTest {
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
+    }
+
+    @Test
+    public void setPersonAsFavourite_setSecondPersonAsFavourite_pushesPersonToTop() {
+        addressBook.addPerson(ALICE);
+        addressBook.addPerson(BENSON);
+        addressBook.setPersonAsFavourite(BENSON);
+        assertEquals(BENSON, addressBook.getPersonList().get(0));
+    }
+
+    @Test
+    public void removePerson_personDeletedFromAddressBook_removesPerson() {
+        addressBook.addPerson(ALICE);
+        addressBook.removePerson(ALICE);
+        assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void removePerson_favouritePersonRemoved_pushesPersonToEndOfFavourites() {
+        addressBook.addPerson(ALICE);
+        addressBook.addPerson(BENSON);
+        addressBook.addPerson(CARL);
+        addressBook.setPersonAsFavourite(ALICE);
+
+        Person favouriteAlice = addressBook.getPersonList().get(0);
+
+        addressBook.removePerson(favouriteAlice);
+        addressBook.setPersonAsFavourite(CARL);
+        assertEquals(CARL, addressBook.getPersonList().get(0));
     }
 
     @Test
