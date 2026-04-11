@@ -41,6 +41,6 @@ public class TagTest {
         assertTrue(Tag.isValidTagName("fish"));
         assertTrue(Tag.isValidTagName("vegetable123"));
         assertTrue(Tag.isValidTagName("abc123"));
-        assertTrue(Tag.isValidTagName("abcdefghijklmnopqrst")); // exactly 20 chars
+        assertTrue(Tag.isValidTagName("abcdefghijklmnopqrst")); // exactly 20 chars allowed
     }
 }
