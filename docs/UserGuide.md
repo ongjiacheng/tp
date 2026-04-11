@@ -280,23 +280,28 @@ Example:
 <div style="page-break-after: always;"></div>
 
 ### 4.12 Undo and Redo: `undo`, `redo`
-Use these commands to undo or redo your most recent changes.
+Use these commands to undo or redo your most recent changes in the current app session.
 
-Format:
-`undo`
+Format:  
+`undo`  
 `redo`
 
 What it does:
 - `undo` restores the address book to the previous state.
 - `redo` re-applies the last undone change.
 
-Expected Output:
-- The contact list updates to reflect the restored/re-applied state.
+Notes:
+- Undo/redo history is only kept for the current session.
+- If you close and reopen the app, previous undo/redo history will not be available.
+- Performing a new data-changing command after `undo` clears the redo history.
+
+Expected Output:  
+The contact list updates to reflect the restored or re-applied state.
 
 Example:
-1) `delete 2`
-2) `undo` (restores the deleted contact)
-3) `redo` (deletes it again)
+1. `delete 2`
+2. `undo` (restores the deleted contact)
+3. `redo` (deletes it again)
 
 --------------------------------------------------------------------------------------------------------------------
 

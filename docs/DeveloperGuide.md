@@ -199,10 +199,10 @@ Design note:
 
 ### Undo/redo feature
 
-MALAddress supports undo/redo for data-changing commands.
+MALAddress supports undo/redo for data-changing commands within the current app session.
 
 High-level behaviour:
-- When a data-changing command executes successfully, the previous data state is saved.
+- When a data-changing command executes successfully, the previous in-memory state is saved into undo history.
 - When `undo` is executed, the current state is replaced with the most recent saved state.
 - When `redo` is executed, the most recently undone state is re-applied.
 
@@ -217,7 +217,10 @@ Supported data-changing commands include:
 - `fav`
 
 Design notes:
-- Only successful commands are saved into history.
+- Undo/redo history is session-based only.
+- Undo/redo history is not persisted across app restarts.
+- If the user closes and reopens the application, previously undoable and redoable states are lost.
+- Only successful data-changing commands are stored in history.
 - View-only commands such as `list`, `find`, and `open` do not create undo/redo history entries.
 
 --------------------------------------------------------------------------------------------------------------------
