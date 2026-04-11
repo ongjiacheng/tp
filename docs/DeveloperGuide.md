@@ -4,31 +4,36 @@ title: "Developer Guide"
 pageNav: 3
 ---
 
-# MALAdress Developer Guide
+# MALAddress Developer Guide
 
-<!-- * Table of Contents -->
 <page-nav-print />
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Acknowledgements
 
-This project is based on the AddressBook-Level3 project created by the SE-EDU initiative: https://se-education.org
+This project is based on AddressBook-Level3 by the SE-EDU initiative: https://se-education.org
 
-MALAddress continues to use the following key technologies from AB3:
+MALAddress continues to use the following key technologies adapted from AB3:
 - Java 17
-- JavaFX (GUI)
-- Jackson (JSON storage)
-- MarkBind (project website and docs)
+- JavaFX
+- Jackson
+- MarkBind
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Setting up, getting started
+## Setting up and getting started
 
-Refer to the guide _Setting up and getting started_ (SettingUp.md).
+1. Ensure Java 17 is installed on your machine.
+2. Clone the repository to your local machine.
+3. Open the project in IntelliJ IDEA.
+4. Allow Gradle to import the project and download dependencies.
+5. Run `seedu.address.Main` or use `./gradlew run` to launch the application.
+6. Run `./gradlew check` to verify that the project compiles, tests pass, and code style checks succeed.
+
+For more detailed environment setup instructions, refer to `SettingUp.md`.
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## Design
 
@@ -36,175 +41,194 @@ Refer to the guide _Setting up and getting started_ (SettingUp.md).
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
 
-The Architecture Diagram above illustrates the high-level design of MALAddress, which follows a modular, layered architecture adapted from AB3. This separation of concerns improves maintainability, testability, and extensibility of the system.
+The Architecture Diagram above illustrates the high-level design of MALAddress.
+
+MALAddress follows a modular layered architecture adapted from AB3.  
+This separation of concerns improves maintainability, testability, and extensibility.
+
 **Main components of the architecture**
 
-**Main** (classes `Main` and `MainApp`) is in charge of app launch and shut down.
+**`Main`** (classes `Main` and `MainApp`) is responsible for app launch and shutdown.
 - At app launch, it initializes the other components in the correct sequence and connects them.
-- At shut down, it shuts down components and invokes cleanup methods where necessary.
+- At shutdown, it shuts down components and invokes cleanup where necessary.
 
-The bulk of the app's work is done by the following four components:
+The bulk of the app’s work is done by the following four components:
 - **UI**: the GUI of the app
 - **Logic**: command parsing and execution
-- **Model**: in-memory data of the app
-- **Storage**: reads/writes data to disk
+- **Model**: in-memory data
+- **Storage**: reading and writing data to disk
 
-<div style="page-break-after: always;"></div>
+**How the architecture components interact**
 
-**How the architecture components interact with each other**
-
-The sequence diagram below shows how components interact when a user issues the command `delete 1`.
+The sequence diagram below shows how the components interact when the user enters `delete 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
 Each component:
-- defines an API in an interface with the same name
-- implements functionality using a concrete `{ComponentName}Manager` class
+- defines its API in an interface with the same name
+- implements its functionality using a `{ComponentName}Manager` class
 
 <puml src="diagrams/ComponentManagers.puml" width="300" />
 
-The sections below give more details of each component.
+The sections below describe each component in more detail.
 
 ### UI component
 
-The UI consists of a `MainWindow` made up of parts such as `CommandBox`, `ResultDisplay`, `PersonListPanel`, etc.
+The UI consists of a `MainWindow` made up of components such as `CommandBox`, `ResultDisplay`, and `PersonListPanel`.  
 All UI parts inherit from the abstract `UiPart` class.
 
 The UI component:
-- executes user commands using the Logic component
-- listens for changes to Model data so that UI updates automatically
+- passes user commands to the Logic component
+- listens for changes in the filtered person list so the display updates automatically
 - displays `Person` objects from the Model
-
-<div style="page-break-after: always;"></div>
 
 ### Logic component
 
-The Logic component is responsible for parsing user input into commands and executing them.
+The Logic component parses user input into commands and executes them.
 
-<puml src="diagrams/LogicClassDiagram.puml"/>
+<puml src="diagrams/LogicClassDiagram.puml" />
 
-The sequence diagram below illustrates the interactions within Logic for the command `delete 1`.
+The sequence diagram below illustrates interactions within Logic for the command `delete 1`.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
+<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions inside Logic for delete 1" />
 
 How the Logic component works:
-1. Logic receives a command string from the UI.
-2. It passes the command string to `AddressBookParser` which selects the correct `XYZCommandParser`.
-3. The parser creates a `Command` object (`XYZCommand`).
+1. The UI passes a command string to `LogicManager`.
+2. `LogicManager` passes the string to `AddressBookParser`.
+3. `AddressBookParser` selects the correct parser and creates a `Command`.
 4. `LogicManager` executes the `Command`.
-5. The result is returned as a `CommandResult` and shown in ResultDisplay.
+5. The result is returned as a `CommandResult` to the UI.
 
-<div style="page-break-after: always;"></div>
+Parser-related classes are shown below:
 
-Parser-related classes are shown here:
-
-<puml src="diagrams/ParserClasses.puml" width="600"/>
+<puml src="diagrams/ParserClasses.puml" width="600" />
 
 ### Model component
 
 The Model component:
-- stores all `Person` objects (contacts) in memory
-- stores a filtered list of contacts (`ObservableList<Person>`) for UI display
+- stores all contacts as `Person` objects
+- stores a filtered list of contacts for UI display
 - stores user preferences
+- exposes operations such as add, delete, edit, tag, favourite, undo, and redo through the `Model` interface
 
 <puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
-<div style="page-break-after: always;"></div>
+**Note:** If the model diagram does not render, the corresponding `ModelClassDiagram.puml` file must be corrected.
 
 ### Storage component
 
 The Storage component:
-- saves/loads address book data and user preferences in JSON format
-- depends on Model classes because it saves/retrieves Model objects
+- saves and loads address book data and user preferences in JSON format
+- converts JSON-friendly representations into Model objects and vice versa
+- depends on Model classes because it stores Model data
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
 ### Common classes
 
-Shared classes used by multiple components are in the `seedu.address.commons` package.
+Common utility classes used by multiple components are located in `seedu.address.commons`.
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## Implementation
 
-This section describes noteworthy implementation details for MALAddress-specific features.
+This section describes notable implementation details of MALAddress features.
+
+### Add and adds features
+
+MALAddress supports two add-related commands:
+
+- `add` adds a general operational contact
+- `adds` adds a supplier contact with opening hours
+
+The `add` command is kept because hawker stall operations may involve useful contacts that are not suppliers, such as delivery runners, stall assistants, cleaners, maintenance contacts, or landlord-related contacts. These contacts still need to be stored, but they should not appear in supplier-specific views such as `open`.
+
+The `adds` command is specifically for supplier contacts and supports opening hours so that the `open` command can filter suppliers who are currently available.
 
 ### Tag feature
 
-The `tag` command replaces the tags of a contact identified by an index from the current list.
+The `tag` command replaces the tags of a contact identified by index.
 
 High-level behaviour:
-1. Parser extracts the index and tag values (`t/...`).
-2. Command retrieves the target `Person` from the filtered list.
-3. A new `Person` (or `Supplier`, if the existing contact is a supplier-type object) is created with identical fields except tags.
-4. Model updates the contact via `Model#setPerson(...)`.
-5. UI refreshes because the filtered list is updated.
+1. The parser extracts the target index and all `t/...` values.
+2. The command retrieves the target contact from the filtered list.
+3. A new `Person` or `Supplier` object is created with identical fields except for tags.
+4. The model updates the contact via `Model#setPerson(...)`.
+5. The filtered list refreshes and the UI updates.
 
 Design notes:
-- Tagging is separated from `edit` to keep tagging behaviour consistent and easy to discover.
-- Tags are a lightweight way to represent categories such as ingredients and relationships.
+- Tagging is intentionally separated from `edit`.
+- This keeps `edit` focused on core details while keeping tag replacement explicit and predictable.
 
 ### Open suppliers feature
 
-The `open` command filters the displayed contact list to show only suppliers that are currently open (“open now”).
+The `open` command filters the displayed contact list to show suppliers that are currently open.
 
 High-level behaviour:
 1. `OpenCommand` applies `Model.PREDICATE_SHOW_ALL_OPEN`.
-2. The predicate calls `person.isOpen()` to decide whether a person is currently open.
-3. The UI list updates automatically because the filtered list predicate changes.
+2. The predicate checks `person.isOpen()`.
+3. The UI updates because the filtered list predicate changes.
 
 Design notes:
-- This keeps the command simple: it does not mutate data, it only changes the view.
+- `open` does not mutate stored data.
+- It only changes the current filtered view.
 
 ### Remarks feature
 
 The `remarks` command replaces the remarks of a contact identified by index.
 
 High-level behaviour:
-1. Parser extracts the index and remarks (`r/...`).
-2. A new `Person` (or `Supplier`) is created with identical fields except remarks.
-3. Model updates the contact via `Model#setPerson(...)`.
-4. UI refreshes due to filtered list update.
+1. The parser extracts the target index and `r/...` value.
+2. A new `Person` or `Supplier` object is created with identical fields except for remarks.
+3. The model updates the contact.
+4. The UI refreshes.
 
 ### Favourite feature
 
-The `fav` command toggles the favourite state of a contact by index.
+The `fav` command toggles the favourite state of a contact identified by index.
 
 High-level behaviour:
-1. Command retrieves the target contact by index.
-2. Command creates a new contact object with favourite state toggled.
-3. Model updates the contact.
-4. UI refreshes.
+1. The command retrieves the target contact by index.
+2. If the contact is not currently favourited, the command creates a favourited version.
+3. If the contact is already favourited, the command creates a non-favourited version.
+4. The model updates the contact.
+5. The UI refreshes.
 
-<div style="page-break-after: always;"></div>
+Design note:
+- Favourite behaviour is implemented as a toggle, not a one-way mark-only action.
 
 ### Undo/redo feature
 
 MALAddress supports undo/redo for data-changing commands.
 
 High-level behaviour:
-- When a data-changing command executes (e.g., add, adds, edit, delete, clear, tag, remarks, fav):
-    1. The system saves the previous data state (snapshot) into a cache file (e.g., `cacheData.json`).
-- When `undo` is executed:
-    1. Current data is replaced with the cached previous data.
-    2. The current data is stored as the redo state so `redo` can re-apply it.
-- When `redo` is executed:
-    1. The most recently undone state is re-applied.
+- When a data-changing command executes successfully, the previous data state is saved.
+- When `undo` is executed, the current state is replaced with the most recent saved state.
+- When `redo` is executed, the most recently undone state is re-applied.
 
-Design note:
-- This approach prioritizes simplicity and correctness over memory optimisation.
-- Only successful commands save state; failed commands should not affect undo/redo history.
+Supported data-changing commands include:
+- `add`
+- `adds`
+- `edit`
+- `delete`
+- `clear`
+- `tag`
+- `remarks`
+- `fav`
+
+Design notes:
+- Only successful commands are saved into history.
+- View-only commands such as `list`, `find`, and `open` do not create undo/redo history entries.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## Documentation, logging, testing, configuration, dev-ops
 
-- Documentation guide (Documentation.md)
-- Testing guide (Testing.md)
-- Logging guide (Logging.md)
-- Configuration guide (Configuration.md)
-- DevOps guide (DevOps.md)
+- Documentation guide: `Documentation.md`
+- Testing guide: `Testing.md`
+- Logging guide: `Logging.md`
+- Configuration guide: `Configuration.md`
+- DevOps guide: `DevOps.md`
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -213,161 +237,248 @@ Design note:
 ### Product scope
 
 #### Target user profile
-MALAddress is designed for hawker stall owners and stall assistants who need to manage supplier contacts efficiently during daily operations.
+
+MALAddress is designed for hawker stall owners and stall assistants who need to manage supplier and operational contacts efficiently during daily operations.
+
 These users typically:
-- prefer fast, keyboard-based workflows
+- prefer fast keyboard-based workflows
 - need quick access to supplier availability
-- coordinate frequently with multiple suppliers during peak hours
-- need to note down various information of people
+- coordinate with multiple suppliers during peak hours
+- need to record short operational notes about contacts
 
 #### Value proposition
-MALAddress helps users manage supplier contacts efficiently during daily operations by enabling quick keyboard-based access to contact details, checking supplier availability before contacting to prevent disturbances during off working hours, and reducing the risk of stock shortages through faster, more reliable contact management.
 
-<div style="page-break-after: always;"></div>
+MALAddress helps users manage supplier contacts efficiently during daily operations by enabling quick keyboard-based access to contact details, checking supplier availability before contacting them, and reducing the risk of stock shortages through faster and more reliable contact management.
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​              | I want to …​                                         | So that I can…​                                                     |
-|----------|----------------------|------------------------------------------------------|---------------------------------------------------------------------|
-| `* * *`  | hawker stall staff   | add supplier contacts quickly                         | store contact details for daily operations                          |
-| `* * *`  | hawker stall staff   | find suppliers using keywords (not only names)        | locate suppliers quickly during peak hours                          |
-| `* * *`  | hawker stall staff   | tag suppliers with ingredient categories              | keep track of who supplies what                                     |
-| `* * *`  | hawker stall staff   | check which suppliers are open now                    | contact suppliers who are currently available                       |
-| `* * *`  | hawker stall staff   | update supplier contact details                       | keep contact information accurate                                   |
-| `* * *`  | hawker stall staff   | delete outdated suppliers                             | remove contacts that are no longer relevant                         |
-| `* *`    | hawker stall staff   | add remarks to a supplier                             | store operational notes (e.g., “always late”)                       |
-| `* *`    | hawker stall staff   | favourite important suppliers                         | access key suppliers more easily                                    |
-| `* *`    | hawker stall staff   | undo my last change                                  | recover from accidental mistakes                                    |
-| `* *`    | hawker stall staff   | redo my last undone change                           | recover if I undo by mistake                                        |
-| `* *`    | hawker stall staff   | see time left before a supplier closes               | decide quickly whether I should contact them now                    |
-| `*`      | hawker stall staff   | use UI helper buttons to autofill command formats     | reduce typing and format mistakes                                   |
-| `*`      | hawker stall staff   | track order history                                  | remember previous supplier orders if needed                          |
+| Priority | As a ... | I want to ... | So that I can ... |
+|----------|----------|---------------|-------------------|
+| `* * *` | hawker stall staff | add supplier contacts quickly | store contact details for daily operations |
+| `* * *` | hawker stall staff | add non-supplier operational contacts | keep useful business contacts in one place |
+| `* * *` | hawker stall staff | find contacts using keywords, not just names | locate the correct contact quickly during peak hours |
+| `* * *` | hawker stall staff | tag suppliers with ingredient categories | remember who supplies what |
+| `* * *` | hawker stall staff | check which suppliers are open now | contact only suppliers who are currently available |
+| `* * *` | hawker stall staff | edit contact information | keep stored details accurate |
+| `* * *` | hawker stall staff | delete outdated contacts | remove contacts that are no longer relevant |
+| `* *` | hawker stall staff | add remarks to contacts | store operational notes such as reliability or delivery preferences |
+| `* *` | hawker stall staff | favourite important contacts | identify key contacts quickly |
+| `* *` | hawker stall staff | undo my last change | recover from accidental mistakes |
+| `* *` | hawker stall staff | redo my last undone change | recover if I undo something by mistake |
+| `* *` | hawker stall staff | see time left before a supplier closes | decide quickly whether I should contact them now |
+| `*` | hawker stall staff | use UI helper buttons to autofill command formats | reduce typing and format mistakes |
+| `*` | hawker stall staff | track order history | refer to previous supplier interactions if needed |
 
 ### Use cases
 
-(For all use cases below, the System is `MALAddress`.)
+For all use cases below, the system is `MALAddress`.
 
 #### Use case: Add a supplier contact (`adds`)
 
 **Actor:** hawker stall staff
 
-**Preconditions:** App is running; user is at the command box.
+**Preconditions:** App is running and the command box is available.
 
-**Guarantees:** Supplier contact is added if the input is valid and not a duplicate.
+**Guarantees:** A supplier contact is stored if the input is valid and not a duplicate.
 
-**Main Success Scenario (MSS):**
-1. User enters the `adds` command with required fields.
+**Main Success Scenario**
+1. User enters the `adds` command with the required supplier fields.
 2. System validates the input.
-3. System saves the supplier.
-4. System shows a success message and updates the contact list.
+3. System stores the supplier contact.
+4. System displays a success message.
+5. System updates the contact list.
 
-**Extensions:**
-- 2a. Invalid opening hours format
-  2a1. System shows an error message with an example and does not add.
-- 3a. Duplicate contact
-  3a1. System rejects add and shows duplicate error.
+**Extensions**
+- 2a. Opening hours format is invalid.
+    - 2a1. System shows an error message with an example of the correct format.
+- 2b. The contact duplicates an existing contact.
+    - 2b1. System rejects the command and shows a duplicate-contact error.
 
-<div style="page-break-after: always;"></div>
+**Use case ends.**
 
-#### Use case: Tag a supplier (`tag`)
+#### Use case: Add a general operational contact (`add`)
 
 **Actor:** hawker stall staff
 
-**Preconditions:** Contact exists and is visible in the current list.
+**Preconditions:** App is running and the command box is available.
 
-**Guarantees:** Tags for the selected contact are replaced if input is valid.
+**Guarantees:** A non-supplier operational contact is stored if the input is valid and not a duplicate.
 
-**MSS:**
-1. User enters `tag INDEX t/TAG [t/TAG]...`
-2. System validates the index and tag(s).
+**Main Success Scenario**
+1. User enters the `add` command with the required fields.
+2. System validates the input.
+3. System stores the contact.
+4. System displays a success message.
+5. System updates the contact list.
+
+**Extensions**
+- 2a. Required fields are missing or malformed.
+    - 2a1. System shows an invalid-format error.
+- 2b. The contact duplicates an existing contact.
+    - 2b1. System rejects the command and shows a duplicate-contact error.
+
+**Use case ends.**
+
+#### Use case: Tag a contact (`tag`)
+
+**Actor:** hawker stall staff
+
+**Preconditions:** Target contact exists in the current displayed list.
+
+**Guarantees:** The selected contact’s tags are replaced if the input is valid.
+
+**Main Success Scenario**
+1. User enters `tag INDEX t/TAG [t/TAG]...`.
+2. System validates the index and tags.
 3. System replaces the contact’s tags.
-4. System shows a success message and updates the list.
+4. System displays a success message.
+5. System updates the list.
 
-**Extensions:**
-- 2a. Invalid index
-  2a1. System shows invalid index error.
-- 2b. Missing tag values
-  2b1. System shows invalid format error with usage.
+**Extensions**
+- 2a. Index is invalid.
+    - 2a1. System shows an invalid-index error.
+- 2b. No tag value is provided.
+    - 2b1. System shows an invalid-format error.
+
+**Use case ends.**
 
 #### Use case: List open suppliers (`open`)
 
 **Actor:** hawker stall staff
 
-**Preconditions:** Suppliers have correctly formatted opening hours.
+**Preconditions:** Supplier contacts with valid opening hours exist.
 
-**Guarantees:** Display is filtered to open suppliers. 
+**Guarantees:** The displayed list is filtered to show currently open suppliers.
 
-**MSS:**
+**Main Success Scenario**
 1. User enters `open`.
-2. System filters the list to suppliers whose opening hours include current time.
-3. System shows a success message and updates the list.
+2. System filters the list to contacts whose `isOpen()` returns true.
+3. System updates the displayed contact list.
+
+**Extensions**
+- 2a. No suppliers are currently open.
+    - 2a1. System displays an empty filtered list.
+
+**Use case ends.**
+
+#### Use case: Toggle favourite status (`fav`)
+
+**Actor:** hawker stall staff
+
+**Preconditions:** Target contact exists in the current displayed list.
+
+**Guarantees:** The selected contact’s favourite status is toggled.
+
+**Main Success Scenario**
+1. User enters `fav INDEX`.
+2. System validates the index.
+3. System toggles the favourite status of the contact.
+4. System displays a success message.
+5. System updates the contact list.
+
+**Extensions**
+- 2a. Index is invalid.
+    - 2a1. System shows an invalid-index error.
+
+**Use case ends.**
+
+#### Use case: Undo a previous data-changing command (`undo`)
+
+**Actor:** hawker stall staff
+
+**Preconditions:** There is at least one undoable state in history.
+
+**Guarantees:** The most recent data-changing command is reverted.
+
+**Main Success Scenario**
+1. User enters `undo`.
+2. System restores the previous saved state.
+3. System displays a success message.
+4. System updates the contact list.
+
+**Extensions**
+- 2a. There is no undoable state.
+    - 2a1. System shows an error message indicating that there is nothing to undo.
+
+**Use case ends.**
 
 ### Non-Functional Requirements
 
-1. Should work on any mainstream OS as long as it has Java 17 or above installed.
-2. Should be able to hold up to 1000 contacts without noticeable sluggishness for typical usage.
-3. Common tasks (adds/find/tag/open) should be completable using one command without multiple UI screens.
-4. Error messages must clearly state what went wrong and what format is expected.
-5. On invalid input, the app must not crash, corrupt data, or modify stored data.
+1. The app should work on Windows, macOS, and Linux systems with Java 17 installed.
+2. The app should be able to handle at least 1000 contacts without noticeable delay for common commands such as `add`, `adds`, `find`, `tag`, and `open`.
+3. Common tasks such as `adds`, `find`, `tag`, and `open` should be completable in a single command without requiring extra UI screens.
+4. On invalid input, the app must not modify stored data.
+5. Error messages must indicate both what went wrong and, where relevant, the expected input format.
+6. Stored data should persist correctly across app restarts as long as the JSON file is not manually corrupted.
+7. The app should remain usable in a terminal-and-window workflow without requiring mouse interaction for core tasks.
 
 ### Glossary
 
 - **Mainstream OS**: Windows, Linux, Unix, macOS
-- **Hawker stall**: A small food business operating from a stall in a hawker centre/food court, common in Singapore/Malaysia
-- **Supplier**: A contact that provides ingredients/services to the stall
-- **Tag**: A short label used to classify contacts (e.g., “vegetable”, “seafood”, “friend”)
-- **Ingredient tag**: A tag describing what the supplier sells (e.g., “fish”, “meat”)
-- **Relationship tag**: A tag describing the relationship category (e.g., “supplier”)
-- **Remarks**: A short note attached to a contact for operational info (e.g., “always late”)
-- **Opening hours**: Supplier availability window in format `HHmm - HHmm`
-- **Open supplier (open now)**: A supplier whose opening hours include the current time
-- **Favourite**: A contact marked as important (shown with a favourite indicator)
-- **Undo/Redo**: Commands that revert or re-apply the most recent change(s)
+- **Hawker stall**: A small food business operating from a stall in a hawker centre or food court
+- **Supplier**: A contact that provides ingredients or services to the stall
+- **Tag**: A short label used to classify contacts
+- **Remarks**: A short note attached to a contact for operational information
+- **Opening hours**: Supplier availability window in the format `HHmm - HHmm`
+- **Open supplier**: A supplier whose opening hours include the current time
+- **Favourite**: A contact marked as important
+- **Undo/Redo**: Commands that revert or re-apply the most recent data-changing action
 
 --------------------------------------------------------------------------------------------------------------------
-<div style="page-break-after: always;"></div>
 
 ## Appendix: Instructions for manual testing
 
 <box type="info" seamless>
 
-These instructions provide a starting point for testers. Testers are expected to do additional exploratory testing.
+These instructions provide a starting point for testers. Testers are expected to do more exploratory testing.
 
 </box>
 
 ### Launch and shutdown
+
 1. Download the jar file and copy it into an empty folder.
-2. Run `java -jar maladdress.jar`.
-   Expected: GUI appears with sample data (if no data file exists yet).
+2. Run `java -jar maladdress.jar`.  
+   Expected: The GUI appears with sample data if no data file exists yet.
 
 ### Adding a supplier
-1. Test case:
-   `adds n/Ah Seng p/91234567 e/a@b.com a/Yishun o/0900 - 1800 t/vegetable`
-   Expected: Supplier appears in list and success message shown.
 
-2. Test case (invalid opening hours):
-   `adds n/Test p/91234567 e/t@t.com a/Yishun o/0900-1800 t/veg`
-   Expected: Command fails with error message showing correct format example.
+1. Test case:  
+   `adds n/Ah Seng p/91234567 e/a@b.com a/Yishun o/0900 - 1800 t/vegetable`  
+   Expected: Supplier appears in the list and a success message is shown.
 
-### Tagging a supplier
+2. Test case with invalid opening hours:  
+   `adds n/Test p/91234567 e/t@t.com a/Yishun o/0900-1800 t/veg`  
+   Expected: Command fails with an error message showing the correct format example.
+
+### Tagging a contact
+
 1. Prerequisite: list contacts.
-2. Test case:
-   `tag 1 t/vegetable t/fruits`
-   Expected: Tags replaced and shown in contact card.
+2. Test case:  
+   `tag 1 t/vegetable t/fruits`  
+   Expected: Tags are replaced and shown in the contact card.
 
 ### Open suppliers
+
 1. Prerequisite: suppliers have valid opening hours.
-2. Test case:
-   `open`
-   Expected: List shows only suppliers that are open now.
+2. Test case:  
+   `open`  
+   Expected: The list shows only suppliers that are open now.
+
+### Favourite toggle
+
+1. Prerequisite: list contacts.
+2. Test case:  
+   `fav 1`  
+   Expected: The first contact becomes favourited if it was not favourited before, or becomes non-favourited if it was already favourited.
 
 ### Delete
+
 1. Prerequisite: list contacts.
-2. Test case:
-   `delete 1`
-   Expected: Contact removed; success message shown.
+2. Test case:  
+   `delete 1`  
+   Expected: The first contact is removed and a success message is shown.
 
 ### Clear
 1. Test case:
