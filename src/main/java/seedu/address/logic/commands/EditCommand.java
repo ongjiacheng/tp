@@ -55,6 +55,8 @@ public class EditCommand extends Command {
             "Tags cannot be edited using edit. Use the tag command instead.";
     public static final String MESSAGE_INCORRECT_TIME_FORMAT =
             "Opening hours should follow 'HHmm - HHmm' (e.g., 0900 - 1800).";
+    public static final String MESSAGE_NOT_SUPPLIER_NO_HOUR =
+            "Operating hour does not exist and cannot be edited for non-suppliers!";
 
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -85,6 +87,8 @@ public class EditCommand extends Command {
 
         if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } else if (!(personToEdit instanceof Supplier) && editPersonDescriptor.getOpeningHours().isPresent()) {
+            throw new CommandException(MESSAGE_NOT_SUPPLIER_NO_HOUR);
         }
 
         model.saveStateForUndo();
