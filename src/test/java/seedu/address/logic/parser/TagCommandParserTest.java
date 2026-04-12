@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT_OR_INDEX;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -64,10 +64,19 @@ public class TagCommandParserTest {
 
     @Test
     public void parse_invalidIndex_failure() {
+        // 0
         assertParseFailure(
                 parser,
                 "0 at/fish",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagCommand.MESSAGE_USAGE)
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_OR_INDEX, TagCommand.MESSAGE_USAGE)
         );
+
+        // negative index
+        assertParseFailure(
+                parser,
+                "-1 at/fish",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT_OR_INDEX, TagCommand.MESSAGE_USAGE)
+        );
+
     }
 }
