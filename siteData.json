@@ -115,8 +115,8 @@
     },
     {
       "src": "UserGuide.md",
-      "title": "User Guide",
       "headings": {
+        "layout-default-md-title-and-quot-user-guide-and-quot-pagenav-3": "layout: default.md\ntitle: &quot;User Guide&quot;\npageNav: 3",
         "maladress-user-guide": "MALAdress User Guide",
         "1-introduction": "1. Introduction",
         "2-quick-start": "2. Quick Start",
