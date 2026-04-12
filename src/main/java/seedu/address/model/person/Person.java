@@ -129,8 +129,7 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().toString().equalsIgnoreCase(getName().toString());
+        return otherPerson.equals(this);
     }
 
     /**
