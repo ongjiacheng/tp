@@ -143,7 +143,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Handles the clear button.
+     * Clears the address book.
      */
     @FXML
     public void handleClear() throws CommandException, ParseException {
