@@ -7,7 +7,7 @@ pageNav: 3
 
 # MALAdress User Guide
 
-<!-- \* Table of Contents -->
+<!-- \\\\\\\\\\\\\\\* Table of Contents -->
 
 <page-nav-print />
 
@@ -27,6 +27,9 @@ It helps users manage supplier contacts efficiently during daily operations by e
 ### Step 1: Installation
 
 1. Ensure Java 17 or above is installed on your computer.
+* Go to https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html and install the appropriate version depending on your OS (macOS x64 DMG Installer, or Windows x64 Installer). Run the downloaded file and follow the installation instructions
+* If you are on Linux, run `sudo apt update` followed by `sudo apt install openjdk-17-jdk`
+* Open the terminal for macOS/Linux, or the CMD for Windows by pressing the Windows button and typing `cmd`. Type `java -version` into the terminal/cmd, and ensure that Java 17 is indeed installed successfully (Output should say `openjdk version "17.0.x"...` or `java version "17.0.x"...`)
 2. Download the latest `.jar` file from your team’s GitHub Releases page.
 3. Copy the `.jar` file to a folder you want to use as the home directory of MALAdress.
 
@@ -37,9 +40,8 @@ Note:
 
 ### Step 2: Launching the Application
 
-1. Open a terminal.
-2. `cd` into the folder containing the jar.
-3. Run:
+1. Open a terminal in the MALAdress folder. For macOs and Linux, right click the folder and select "Open in terminal". For Windows, type `cmd` in the address bar and enter.
+2. Run:
 `java -jar maladress.jar`
 
 A GUI similar to the following should appear:
@@ -121,7 +123,7 @@ A help window is displayed with a list of commands and formats.
 Use this command to add a general contact.
 
 Format:
-`add n/NAME p/PHONE e/EMAIL a/ADDRESS \[t/TAG]...`
+`add n/NAME p/PHONE e/EMAIL a/ADDRESS \\\\\\\\\\\\\\\[t/TAG]...`
 
 Warning:
 Duplicate names will cause an error regardless of their case.
@@ -141,7 +143,7 @@ Example:
 Use this command to add a supplier contact with opening hours, so that `open` can work correctly.
 
 Format:
-`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/OPENING\_HOURS t/TAG \[t/TAG]...`
+`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/OPENING\\\\\\\\\\\\\\\_HOURS t/TAG \\\\\\\\\\\\\\\[t/TAG]...`
 
 Notes:
 - Opening hours must be in the format `HHmm - HHmm` (example: `0900 - 1800`).
@@ -182,7 +184,7 @@ All contacts are displayed in the contact list panel.
 Use this command to locate contacts quickly using keywords.
 
 Format:
-`find KEYWORD \[MORE\_KEYWORDS]`
+`find KEYWORD \\\\\\\\\\\\\\\[MORE\\\\\\\\\\\\\\\_KEYWORDS]`
 
 Search behaviour:
 
@@ -205,7 +207,7 @@ Example:
 Use this command to update contact details.
 
 Format:
-`edit INDEX \[n/NAME] \[p/PHONE] \[e/EMAIL] \[a/ADDRESS] \[o/OPENING\_HOURS]`
+`edit INDEX \\\\\\\\\\\\\\\[n/NAME] \\\\\\\\\\\\\\\[p/PHONE] \\\\\\\\\\\\\\\[e/EMAIL] \\\\\\\\\\\\\\\[a/ADDRESS] \\\\\\\\\\\\\\\[o/OPENING\\\\\\\\\\\\\\\_HOURS]`
 
 Notes:
 
@@ -231,7 +233,7 @@ Example (supplier opening hours):
 Use this command to modify the tags of a contact.
 
 Format:  
-`tag INDEX \[at/TAG]... \[dt/TAG]... \[ct/]`
+`tag INDEX \\\\\\\\\\\\\\\[at/TAG]... \\\\\\\\\\\\\\\[dt/TAG]... \\\\\\\\\\\\\\\[ct/]`
 
 What it does:
 
@@ -415,7 +417,7 @@ All changes are saved automatically. No manual saving is required.
 ### Editing the Data File
 
 Data is stored at:
-`\[JAR file location]/data/maladress-data.json`
+`\\\\\\\\\\\\\\\[JAR file location]/data/maladress-data.json`
 
 Warning:
 Invalid edits may cause data loss.
@@ -446,12 +448,12 @@ Remedy: exit fullscreen before opening the dialog.
 |Action|Format, Examples|
 |-|-|
 |Help|`help`|
-|Add|`add n/NAME p/PHONE e/EMAIL a/ADDRESS \[t/TAG]...`|
-|Add Supplier|`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/HHmm - HHmm t/TAG \[t/TAG]...`|
+|Add|`add n/NAME p/PHONE e/EMAIL a/ADDRESS \\\\\\\\\\\\\\\[t/TAG]...`|
+|Add Supplier|`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/HHmm - HHmm t/TAG \\\\\\\\\\\\\\\[t/TAG]...`|
 |List|`list`|
-|Find|`find KEYWORD \[MORE\_KEYWORDS]`|
-|Edit|`edit INDEX \[n/NAME] \[p/PHONE] \[e/EMAIL] \[a/ADDRESS] \[o/HHmm - HHmm]`|
-|Tag|`tag INDEX \[at/TAG]... \[dt/TAG]... \[ct/]`|
+|Find|`find KEYWORD \\\\\\\\\\\\\\\[MORE\\\\\\\\\\\\\\\_KEYWORDS]`|
+|Edit|`edit INDEX \\\\\\\\\\\\\\\[n/NAME] \\\\\\\\\\\\\\\[p/PHONE] \\\\\\\\\\\\\\\[e/EMAIL] \\\\\\\\\\\\\\\[a/ADDRESS] \\\\\\\\\\\\\\\[o/HHmm - HHmm]`|
+|Tag|`tag INDEX \\\\\\\\\\\\\\\[at/TAG]... \\\\\\\\\\\\\\\[dt/TAG]... \\\\\\\\\\\\\\\[ct/]`|
 |Open|`open`|
 |Remarks|`remarks INDEX r/REMARKS`|
 |Favourite|`fav INDEX`|
