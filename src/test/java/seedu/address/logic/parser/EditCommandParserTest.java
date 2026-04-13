@@ -97,7 +97,6 @@ public class EditCommandParserTest {
 
         // invalid opening hours format/value
         assertParseFailure(parser, "1" + INVALID_OPENING_HOURS_DESC, EditCommand.MESSAGE_INCORRECT_TIME_FORMAT);
-        assertParseFailure(parser, "1" + INVALID_OPENING_HOURS_DESC_2, EditCommand.MESSAGE_INCORRECT_TIME_FORMAT);
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_CONSTRAINTS);

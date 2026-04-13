@@ -29,6 +29,9 @@ It helps users manage supplier contacts efficiently during daily operations by e
 ### Step 1: Installation
 
 1. Ensure Java 17 or above is installed on your computer.
+* Go to https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html and install the appropriate version depending on your OS (macOS x64 DMG Installer, or Windows x64 Installer). Run the downloaded file and follow the installation instructions
+* If you are on Linux, run `sudo apt update` followed by `sudo apt install openjdk-17-jdk`
+* Open the terminal for macOS/Linux, or the CMD for Windows by pressing the Windows button and typing `cmd`. Type `java -version` into the terminal/cmd, and ensure that Java 17 is indeed installed successfully (Output should say `openjdk version "17.0.x"...` or `java version "17.0.x"...`)
 2. Download the latest `.jar` file from your team’s GitHub Releases page.
 3. Copy the `.jar` file to a folder you want to use as the home directory of MALAdress.
 
@@ -39,9 +42,8 @@ Note:
 
 ### Step 2: Launching the Application
 
-1. Open a terminal.
-2. `cd` into the folder containing the jar.
-3. Run:
+1. Open a terminal in the MALAdress folder. For macOs and Linux, right click the folder and select "Open in terminal". For Windows, type `cmd` in the address bar and enter.
+2. Run:
 `java -jar maladress.jar`
 
 A GUI similar to the following should appear:
@@ -66,8 +68,6 @@ A GUI similar to the following should appear:
 <div style="page-break-after: always;"></div>
 
 ![Alt text](./images/open_command.png)
-
-
 
 ---
 
@@ -125,6 +125,14 @@ Use this command to add a general contact.
 Format:
 `add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
 
+Notes:
+- Remarks are **not** included in `adds`.
+- This is intentional, so that `adds` does not become too lengthy to input.
+- If you want to attach a remark, add the supplier first, then use the `remarks` command.
+- Names must not be blank or exceed 49 characters.
+- Names may contain alphanumeric characters, spaces, and the following special characters: `@ / & . - ( ) ' , ; [ ] ~ ! ^ _ * # $ + | { } < > ? \ : = `
+- Although adding `\` is allowed in names, putting prefixes between spaces like ` p/ ` can result in multiple value error
+
 Warning:
 Duplicate names will cause an error regardless of their case.
 
@@ -147,10 +155,14 @@ Format:
 
 Notes:
 - Opening hours must be in the format `HHmm - HHmm` (example: `0900 - 1800`).
+- Opening time must be before closing time, i.e. (0000 <= opening time < closing time <= 2359)
 - Suppliers must have at least one tag.
 - Remarks are **not** included in `adds`.
 - This is intentional, so that `adds` does not become too lengthy to input.
 - If you want to attach a remark, add the supplier first, then use the `remarks` command.
+- Although adding `\` is allowed in names, putting prefixes between spaces like ` p/ ` can result in multiple value error 
+- Names must not be blank or exceed 49 characters.
+- Names may contain alphanumeric characters, spaces, and the following special characters: `@ / & . - ( ) ' , ; [ ] ~ ! ^ _ * # $ + | { } < > ? \ : =`
 
 Warning:
 Duplicate names will cause an error regardless of their case.
@@ -212,7 +224,7 @@ Format:
 Notes:
 
 * INDEX refers to the number shown in the current list.
-* Opening hours should only be used for suppliers.
+* Editing Opening hours should only be used on Suppliers.
 * Tags cannot be edited using `edit`. Use `tag` instead.
 
 Expected Output:
@@ -246,7 +258,10 @@ Rules:
 * `INDEX` refers to the number shown in the current displayed list
 * At least one of `at/`, `dt/`, or `ct/` must be provided
 * `ct/` cannot be used together with `at/` or `dt/`
+* `ct/` cannot be used on Supplier at all
+* `dt/`cannot be used on Supplier with 1 tag remaining
 * `edit` does not modify tags; use `tag` instead
+* Each tag has a letter limit of at most 20
 
 Expected Output:
 The selected contact’s tags are updated and shown in the contact card/list.
@@ -478,6 +493,3 @@ Remedy: exit fullscreen before opening the dialog.
 |Opening hours|Supplier availability window in the format `HHmm - HHmm` (e.g., `0900 - 1800`).|
 |Open supplier|A supplier whose opening hours include the current time.|
 |Favourite|A contact marked as important (shown with a favourite indicator).|
-
-
-

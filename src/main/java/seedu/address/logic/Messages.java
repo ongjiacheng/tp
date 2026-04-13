@@ -14,8 +14,8 @@ import seedu.address.model.person.Supplier;
 public class Messages {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command: "
-            + "Command should start with the following: add, adds, clear, delete, edit, exit, fav, find, help, list,"
-            + "open, redo, remarks, tag, undo, unfav";
+            + "Command should start with the following: add, adds, clear, delete, edit, exit, fav, find, help, list, "
+            + "open, redo, remarks, tag, undo, unfav ";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT_OR_INDEX =
             "Invalid command format or non-positive index provided! \n%1$s";

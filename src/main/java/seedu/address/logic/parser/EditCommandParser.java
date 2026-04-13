@@ -88,16 +88,18 @@ public class EditCommandParser implements Parser<EditCommand> {
     }
 
     private static void validateOpeningHours(String openingHours) throws ParseException {
-        // Strict format check: requires spaces around '-'
         if (!OPENING_HOURS_PATTERN.matcher(openingHours).matches()) {
             throw new ParseException(EditCommand.MESSAGE_INCORRECT_TIME_FORMAT);
         }
 
-        // Validate actual times (e.g., rejects 2560 - 1800)
         try {
             String[] parts = openingHours.split(" - ");
-            LocalTime.parse(parts[0], TIME_FORMAT);
-            LocalTime.parse(parts[1], TIME_FORMAT);
+            LocalTime start = LocalTime.parse(parts[0], TIME_FORMAT);
+            LocalTime end = LocalTime.parse(parts[1], TIME_FORMAT);
+
+            if (!start.isBefore(end)) {
+                throw new ParseException(EditCommand.MESSAGE_INVALID_VALUE);
+            }
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException ex) {
             throw new ParseException(EditCommand.MESSAGE_INCORRECT_TIME_FORMAT);
         }
