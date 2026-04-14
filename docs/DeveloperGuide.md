@@ -4,7 +4,7 @@ title: "Developer Guide"
 pageNav: 3
 ---
 
-# MALAddress Developer Guide
+# MALAdress Developer Guide
 
 <page-nav-print />
 
@@ -14,7 +14,7 @@ pageNav: 3
 
 This project is based on AddressBook-Level3 by the SE-EDU initiative: https://se-education.org
 
-MALAddress continues to use the following key technologies adapted from AB3:
+MALAdress continues to use the following key technologies adapted from AB3:
 - Java 17
 - JavaFX
 - Jackson
@@ -41,9 +41,9 @@ For more detailed environment setup instructions, refer to `SettingUp.md`.
 
 <puml src="diagrams/ArchitectureDiagram.puml" width="280" />
 
-The Architecture Diagram above illustrates the high-level design of MALAddress.
+The Architecture Diagram above illustrates the high-level design of MALAdress.
 
-MALAddress follows a modular layered architecture adapted from AB3.  
+MALAdress follows a modular layered architecture adapted from AB3.  
 This separation of concerns improves maintainability, testability, and extensibility.
 
 **Main components of the architecture**
@@ -132,11 +132,11 @@ Common utility classes used by multiple components are located in `seedu.address
 
 ## Implementation
 
-This section describes notable implementation details of MALAddress features.
+This section describes notable implementation details of MALAdress features.
 
 ### Add and adds features
 
-MALAddress supports two add-related commands:
+MALAdress supports two add-related commands:
 
 - `add` adds a general operational contact
 - `adds` adds a supplier contact with opening hours
@@ -145,7 +145,7 @@ The `add` command is kept because hawker stall operations may involve useful con
 
 The `adds` command is specifically for supplier contacts and supports opening hours so that the `open` command can filter suppliers who are currently available.
 
-Names should not be blank or more than 49 Characters, and it can only contain alphanumeric characters, spaces, and the following special characters: `@`, /, &, ., -, (, ), ', ,, ;, [, ], ~, !, ^, _, *, #, $, +, |, {, }, <, >, ?, \, :, =
+Names should not be blank or more than 49 Characters, and it can only contain alphanumeric characters, spaces, and the following special characters: `@`, `/`, `&`, `.`, `-`, `(`, `)`, `'`, `,`, `;`, `[`, `]`, `~`, `!`, `^`, `_`, `*`, `#`, `$`, `+`, `|`, `{`, `}`, `<`, `>`, `?`, `\`, `:`, `=`
 
 Note: Although adding `/` is allowed in names, putting prefixes between spaces like ` p/ ` can result in multiple value error
 
@@ -153,7 +153,7 @@ Note: Although adding `/` is allowed in names, putting prefixes between spaces l
 
 The `tag` command modifies the tags of a contact identified by index.
 
-MALAddress supports three tag actions:
+MALAdress supports three tag actions:
 - `at/` adds tag(s)
 - `dt/` deletes tag(s)
 - `ct/` clears all tags
@@ -203,7 +203,7 @@ High-level behaviour:
 
 ### Favourite and unfavourite features
 
-MALAddress supports two separate commands for favourite status:
+MALAdress supports two separate commands for favourite status:
 - `fav` marks a contact as favourite
 - `unfav` removes the favourite status from a contact
 
@@ -236,7 +236,7 @@ Design note:
 
 ### Undo/redo feature
 
-MALAddress supports undo/redo for data-changing commands within the current app session.
+MALAdress supports undo/redo for data-changing commands within the current app session.
 
 High-level behaviour:
 - When a data-changing command executes successfully, the previous in-memory state is saved into undo history.
@@ -279,7 +279,7 @@ Design notes:
 
 #### Target user profile
 
-MALAddress is designed for hawker stall owners and stall assistants who need to manage supplier and operational contacts efficiently during daily operations.
+MALAdress is designed for hawker stall owners and stall assistants who need to manage supplier and operational contacts efficiently during daily operations.
 
 These users typically:
 - prefer fast keyboard-based workflows
@@ -289,7 +289,7 @@ These users typically:
 
 #### Value proposition
 
-MALAddress helps users manage supplier contacts efficiently during daily operations by enabling quick keyboard-based access to contact details, checking supplier availability before contacting them, and reducing the risk of stock shortages through faster and more reliable contact management.
+MALAdress helps users manage supplier contacts efficiently during daily operations by enabling quick keyboard-based access to contact details, checking supplier availability before contacting them, and reducing the risk of stock shortages through faster and more reliable contact management.
 
 ### User stories
 
@@ -314,7 +314,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-For all use cases below, the system is `MALAddress`.
+For all use cases below, the system is `MALAdress`.
 
 #### Use case: Add a supplier contact (`adds`)
 
@@ -510,7 +510,7 @@ These instructions provide a starting point for testers. Testers are expected to
 ### Launch and shutdown
 
 1. Download the jar file and copy it into an empty folder.
-2. Run `java -jar maladdress.jar`.  
+2. Run `java -jar maladress.jar`.
    Expected: The GUI appears with sample data if no data file exists yet.
 
 ### Adding a supplier

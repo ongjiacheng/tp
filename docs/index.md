@@ -10,7 +10,7 @@
 
 ![Ui](images/Ui.png)
 
-**MALAddress is a desktop application for managing your Hawker Stall.**. it can store, update, and retrieve supplier and
+**MALAdress is a desktop application for managing your Hawker Stall**. it can store, update, and retrieve supplier and
 regular-customer contacts, optimized for fast CLI workflows during busy service hours. Reduce missed calls, supplier
 mix-ups, and time wasted digging through chat apps, emails, or paper notes!
 

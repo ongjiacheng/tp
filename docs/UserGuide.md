@@ -341,13 +341,14 @@ Format:
 `unfav INDEX`
 
 Note:
-- When a contact is marked as favourite, it is moved to the **top** of the contact list.
+- When a contact is marked as favourite, it is moved to the **favourites list**, above the normal contact list.
+- When a contact is marked as not favourite, it is moved back to the contact list.
 - This may change the displayed index numbers of other contacts.
 - Removing a contact’s favourite status may cause the contact list order to change again.
 - As a result, displayed index numbers may change.
 
 Expected Output:
-The contact is toggled as favourite (favourite indicator updates).
+The contact is toggled as favourite (favourite indicator updates),  and it is moved to the correct list.
 
 Example:
 
