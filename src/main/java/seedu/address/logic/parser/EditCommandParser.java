@@ -25,6 +25,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditCommandParser implements Parser<EditCommand> {
 
+    private static final String VALID_OPENING_HOURS_VALUE =
+            "^([01][0-9]|2[0-3])[0-5][0-9] - ([01][0-9]|2[0-3])[0-5][0-9]$";
     private static final Pattern OPENING_HOURS_PATTERN = Pattern.compile("^\\d{4}\\s-\\s\\d{4}$");
     private static final DateTimeFormatter TIME_FORMAT = DateTimeFormatter.ofPattern("HHmm");
 
@@ -90,6 +92,10 @@ public class EditCommandParser implements Parser<EditCommand> {
     private static void validateOpeningHours(String openingHours) throws ParseException {
         if (!OPENING_HOURS_PATTERN.matcher(openingHours).matches()) {
             throw new ParseException(EditCommand.MESSAGE_INCORRECT_TIME_FORMAT);
+        }
+
+        if (!openingHours.matches(VALID_OPENING_HOURS_VALUE)) {
+            throw new ParseException(EditCommand.MESSAGE_INVALID_TIME);
         }
 
         try {
