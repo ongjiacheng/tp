@@ -1,30 +1,29 @@
-
----
+\---
 
 layout: default.md
 title: "User Guide"
 pageNav: 3
 
----
+\---
 
 # MALAdress User Guide
 
-<!-- * Table of Contents -->
+<!-- \* Table of Contents -->
 
 <page-nav-print />
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
-## 1. Introduction
+## 1\. Introduction
 
 MALAdress is a desktop address book application for hawker stall owners and stall assistants, optimized for fast Command Line Interface (CLI) workflows while still providing the benefits of a Graphical User Interface (GUI).
 It helps users manage supplier contacts efficiently during daily operations by enabling quick keyboard-based access to contact details, checking supplier availability before contacting to prevent disturbances during off working hours, and reducing the risk of stock shortages through faster, more reliable contact management.
 
----
+\---
 
-## 2. Quick Start
+## 2\. Quick Start
 
 ### Step 1: Installation
 
@@ -47,7 +46,7 @@ Note:
 `java -jar maladress.jar`
 
 A GUI similar to the following should appear:
-![Alt text](./images/UI_screenshot.png)
+!\[Alt text](./images/UI\_screenshot.png)
 
 ### Step 3: Understanding the Interface
 
@@ -63,15 +62,15 @@ A GUI similar to the following should appear:
 3. Check open suppliers:
 `open`
 
-![Alt text](./images/UI_supplier.png)
+!\[Alt text](./images/UI\_supplier.png)
 
 <div style="page-break-after: always;"></div>
 
-![Alt text](./images/open_command.png)
+!\[Alt text](./images/open\_command.png)
 
----
+\---
 
-## 3. Common Tasks
+## 3\. Common Tasks
 
 ### Adding a New Supplier
 
@@ -85,24 +84,25 @@ Use `find` to search by keywords across name, phone, email, address, tags, and r
 
 Use `open` to filter to suppliers that are currently available (“open now”).
 
----
+\---
 
-## 4. Features
+## 4\. Features
 
 ### 4.1 Notes about Command Format
-- Words in UPPER_CASE are parameters you supply.
-  Example: `adds n/NAME p/PHONE ...`
-- Items in square brackets are optional.
-- Items with `...` can appear multiple times (including zero times).
-- Parameters can be in any order unless stated otherwise.
-- Extra parameters for commands that do not take parameters (e.g., `help`, `list`, `open`, `clear`) will be ignored.
-- Commands are case-sensitive by default for command words (type them as shown). 
-- For commands that use `INDEX`, the index refers to the contact number shown in the **currently displayed list**, not the full contact list.
-- As a result, commands such as `edit`, `delete`, `tag`, `remarks`, `fav`, and `unfav` operate on the current displayed list window.
+
+* Words in UPPER\_CASE are parameters you supply.
+Example: `adds n/NAME p/PHONE ...`
+* Items in square brackets are optional.
+* Items with `...` can appear multiple times (including zero times).
+* Parameters can be in any order unless stated otherwise.
+* Extra parameters for commands that do not take parameters (e.g., `help`, `list`, `open`, `clear`) will be ignored.
+* Commands are case-sensitive by default for command words (type them as shown).
+* For commands that use `INDEX`, the index refers to the contact number shown in the **currently displayed list**, not the full contact list.
+* As a result, commands such as `edit`, `delete`, `tag`, `remarks`, `fav`, and `unfav` operate on the current displayed list window.
 
 <div style="page-break-after: always;"></div>
 
----
+\---
 
 ### 4.2 Viewing Help: `help`
 
@@ -114,27 +114,27 @@ Format:
 Expected Output:
 A help window is displayed with a list of commands and formats.
 
-![Alt text](./images/help_command.png)
+!\[Alt text](./images/help\_command.png)
 
----
+\---
 
 ### 4.3 Adding a Contact: `add`
 
 Use this command to add a general contact.
 
 Format:
-`add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`
+`add n/NAME p/PHONE e/EMAIL a/ADDRESS \[t/TAG]...`
 
 Notes:
-- Remarks are **not** included in `add`.
-- This is intentional, so that `add` does not become too lengthy to input.
-- If you want to attach a remark, add the supplier first, then use the `remarks` command.
-- Names must not be blank or exceed 49 characters.
-- Names may contain alphanumeric characters, spaces, and the following special characters: `@ / & . - ( ) ' , ; [ ] ~ ! ^ _ * # $ + | { } < > ? \ : = `
-- Although adding `/` is allowed in names, putting prefixes between spaces like ` p/ ` can result in multiple value error
+
+* Remarks are **not** included in `add`. This is intentional, so that `add` does not become too lengthy to input.
+* If you want to attach a remark, add the supplier first, then use the `remarks` command.
+* Names must not be blank or exceed 49 characters.
+* Names may contain alphanumeric characters, spaces, and the following special characters: `@ / \& . - ( ) ' , ; \[ ] \~ ! ^ \_ \* # $ + | { } < > ? \\ : = `
+* Although adding `/` is allowed in names, putting prefixes between spaces like `p/` can result in multiple value error
 
 Warning:
-Duplicate names will cause an error regardless of their case.
+Attempting to add a new contact with a duplicate name (regardless of case) and phone number will result in an error. Duplicate names alone (regardless of case) are allowed.
 
 Expected Output:
 The contact list updates with the new contact.
@@ -142,7 +142,7 @@ The contact list updates with the new contact.
 Example:
 `add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney`
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
@@ -151,31 +151,32 @@ Example:
 Use this command to add a supplier contact with opening hours, so that `open` can work correctly.
 
 Format:
-`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/OPENING_HOURS t/TAG [t/TAG]...`
+`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/OPENING\_HOURS t/TAG \[t/TAG]...`
 
 Notes:
-- Opening hours must be in the format `HHmm - HHmm` (example: `0900 - 1800`).
-- Opening time must be before closing time, i.e. (0000 <= opening time < closing time <= 2359)
-- Suppliers must have at least one tag.
-- Remarks are **not** included in `adds`.
-- This is intentional, so that `adds` does not become too lengthy to input.
-- If you want to attach a remark, add the supplier first, then use the `remarks` command.
-- Although adding `/` is allowed in names, putting prefixes between spaces like ` p/ ` can result in multiple value error 
-- Names must not be blank or exceed 49 characters.
-- Names may contain alphanumeric characters, spaces, and the following special characters: `@ / & . - ( ) ' , ; [ ] ~ ! ^ _ * # $ + | { } < > ? \ : =`
+
+* Opening hours must be in the format `HHmm - HHmm` (example: `0900 - 1800`).
+* Opening time must be before closing time, i.e. (0000 <= opening time < closing time <= 2359)
+* Suppliers must have at least one tag.
+* Remarks are **not** included in `adds`.
+* This is intentional, so that `adds` does not become too lengthy to input.
+* If you want to attach a remark, add the supplier first, then use the `remarks` command.
+* Although adding `/` is allowed in names, putting prefixes between spaces like `p/` can result in multiple value error
+* Names must not be blank or exceed 49 characters.
+* Names may contain alphanumeric characters, spaces, and the following special characters: `@ / \& . - ( ) ' , ; \[ ] \~ ! ^ \_ \* # $ + | { } < > ? \\ : =`
 
 Warning:
-Duplicate names will cause an error regardless of their case.
+Attempting to add a new contact with a duplicate name (regardless of case) and phone number will result in an error. Duplicate names alone (regardless of case) are allowed.
 
 Expected Output:
 The supplier appears in the contact list with opening hours and tags shown.
 
-![Alt text](./images/add_supplier_UI.png)
+!\[Alt text](./images/add\_supplier\_UI.png)
 
 Example:
 `adds n/Ah Seng p/91234567 e/a@b.com a/Yishun o/0900 - 2200 t/vegetable`
 
----
+\---
 
 ### 4.5 Listing Contacts: `list`
 
@@ -187,7 +188,7 @@ Format:
 Expected Output:
 All contacts are displayed in the contact list panel.
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
@@ -196,7 +197,7 @@ All contacts are displayed in the contact list panel.
 Use this command to locate contacts quickly using keywords.
 
 Format:
-`find KEYWORD [MORE_KEYWORDS]`
+`find KEYWORD \[MORE\_KEYWORDS]`
 
 Search behaviour:
 
@@ -210,22 +211,23 @@ Only matching contacts are displayed.
 Example:
 `find vegetable`
 
-![Alt text](./images/find_command.png)
+!\[Alt text](./images/find\_command.png)
 
----
+\---
 
 ### 4.7 Editing a Contact: `edit`
 
 Use this command to update contact details.
 
 Format:
-`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [o/OPENING_HOURS]`
+`edit INDEX \[n/NAME] \[p/PHONE] \[e/EMAIL] \[a/ADDRESS] \[o/OPENING\_HOURS]`
 
 Notes:
 
 * INDEX refers to the number shown in the current list.
 * Editing Opening hours should only be used on Suppliers.
 * Tags cannot be edited using `edit`. Use `tag` instead.
+* Remarks also cannot be edited using `edit`. Use `remarks` instead.
 
 Expected Output:
 The selected contact’s details are updated.
@@ -236,7 +238,7 @@ Example:
 Example (supplier opening hours):
 `edit 1 o/1000 - 1900`
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
@@ -245,7 +247,7 @@ Example (supplier opening hours):
 Use this command to modify the tags of a contact.
 
 Format:  
-`tag INDEX [at/TAG]... [dt/TAG]... [ct/]`
+`tag INDEX \[at/TAG]... \[dt/TAG]... \[ct/]`
 
 What it does:
 
@@ -276,9 +278,9 @@ Run `list` (or `find ...`) so you can see the correct INDEX.
 * Step 2:
 Run `tag INDEX t/...` to replace the tags.
 
-![Alt text](./images/tag_command.png)
+!\[Alt text](./images/tag\_command.png)
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
@@ -303,9 +305,9 @@ Add suppliers using `adds` with valid opening hours.
 * Step 2:
 Run `open` to filter suppliers that are open now.
 
-![Alt text](./images/open_command.png)
+!\[Alt text](./images/open\_command.png)
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
@@ -326,9 +328,13 @@ Example:
 Example (clearing remarks):
 `remarks 2 r/`
 
-![Alt text](./images/remark_command.png)
+Notes:
 
----
+* INDEX refers to the number shown in the current list.
+
+!\[Alt text](./images/remark\_command.png)
+
+\---
 
 <div style="page-break-after: always;"></div>
 
@@ -341,11 +347,12 @@ Format:
 `unfav INDEX`
 
 Note:
-- When a contact is marked as favourite, it is moved to the **favourites list**, above the normal contact list.
-- When a contact is marked as not favourite, it is moved back to the contact list.
-- This may change the displayed index numbers of other contacts.
-- Removing a contact’s favourite status may cause the contact list order to change again.
-- As a result, displayed index numbers may change.
+
+* When a contact is marked as favourite, it is moved to the **favourites list**, above the normal contact list.
+* When a contact is marked as not favourite, it is moved back to the contact list.
+* This may change the displayed index numbers of other contacts.
+* Removing a contact’s favourite status may cause the contact list order to change again.
+* As a result, displayed index numbers may change.
 
 Expected Output:
 The contact is toggled as favourite (favourite indicator updates),  and it is moved to the correct list.
@@ -355,9 +362,9 @@ Example:
 1. `fav 2` (set contact as a favourite)
 2. `unfav 2` (set contact as not a favourite)
 
-![Alt text](./images/fav_command.png)
+!\[Alt text](./images/fav\_command.png)
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
@@ -389,7 +396,7 @@ Example:
 2. `undo` (restores the deleted contact)
 3. `redo` (deletes it again)
 
----
+\---
 
 ### 4.13 Deleting a Contact: `delete`
 
@@ -407,7 +414,7 @@ Example:
 
 1. `list` followed by `delete 2` deletes the 2nd person in the address book.
 
----
+\---
 
 ### 4.14 Clearing All Contacts: `clear`
 
@@ -422,9 +429,9 @@ The contact list becomes empty.
 Example:
 `clear`
 
----
+\---
 
-## 5. Data Management
+## 5\. Data Management
 
 ### Saving Data
 
@@ -433,43 +440,43 @@ All changes are saved automatically. No manual saving is required.
 ### Editing the Data File
 
 Data is stored at:
-`[JAR file location]/data/maladress-data.json`
+`\[JAR file location]/data/maladress-data.json`
 
 Warning:
 Invalid edits may cause data loss.
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
-## 6. FAQ
+## 6\. FAQ
 
 Q: How do I transfer my data to another computer?
 
 A: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous MALAdress home folder.
 
----
+\---
 
-## 7. Known Issues
+## 7\. Known Issues
 
 1. When using multiple screens, the GUI may open off-screen after changing monitor setup.
 Remedy: delete `preferences.json` and restart.
 2. Mac users using fullscreen mode for secondary dialogs (e.g., Help) may encounter unexpected behaviour.
 Remedy: exit fullscreen before opening the dialog.
 
----
+\---
 
-## 8. Command Summary
+## 8\. Command Summary
 
 |Action|Format, Examples|
 |-|-|
 |Help|`help`|
-|Add|`add n/NAME p/PHONE e/EMAIL a/ADDRESS [t/TAG]...`|
-|Add Supplier|`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/HHmm - HHmm t/TAG [t/TAG]...`|
+|Add|`add n/NAME p/PHONE e/EMAIL a/ADDRESS \[t/TAG]...`|
+|Add Supplier|`adds n/NAME p/PHONE e/EMAIL a/ADDRESS o/HHmm - HHmm t/TAG \[t/TAG]...`|
 |List|`list`|
-|Find|`find KEYWORD [MORE_KEYWORDS]`|
-|Edit|`edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [o/HHmm - HHmm]`|
-|Tag|`tag INDEX [at/TAG]... [dt/TAG]... [ct/]`|
+|Find|`find KEYWORD \[MORE\_KEYWORDS]`|
+|Edit|`edit INDEX \[n/NAME] \[p/PHONE] \[e/EMAIL] \[a/ADDRESS] \[o/HHmm - HHmm]`|
+|Tag|`tag INDEX \[at/TAG]... \[dt/TAG]... \[ct/]`|
 |Open|`open`|
 |Remarks|`remarks INDEX r/REMARKS`|
 |Favourite|`fav INDEX`|
@@ -479,11 +486,11 @@ Remedy: exit fullscreen before opening the dialog.
 |Delete|`delete INDEX`|
 |Clear|`clear`|
 
----
+\---
 
 <div style="page-break-after: always;"></div>
 
-## 9. Glossary
+## 9\. Glossary
 
 |Term|Definition|
 |-|-|
@@ -494,3 +501,6 @@ Remedy: exit fullscreen before opening the dialog.
 |Opening hours|Supplier availability window in the format `HHmm - HHmm` (e.g., `0900 - 1800`).|
 |Open supplier|A supplier whose opening hours include the current time.|
 |Favourite|A contact marked as important (shown with a favourite indicator).|
+
+
+
