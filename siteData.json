@@ -40,7 +40,7 @@
       "src": "DeveloperGuide.md",
       "title": "Developer Guide",
       "headings": {
-        "maladdress-developer-guide": "MALAddress Developer Guide",
+        "maladress-developer-guide": "MALAdress Developer Guide",
         "acknowledgements": "Acknowledgements",
         "setting-up-and-getting-started": "Setting up and getting started",
         "design": "Design",
@@ -73,7 +73,8 @@
         "unfavourite": "Unfavourite",
         "delete": "Delete",
         "clear": "Clear",
-        "undo-and-redo": "Undo and Redo"
+        "undo-and-redo": "Undo and Redo",
+        "appendix-planned-enhancement": "Appendix: Planned Enhancement"
       },
       "headingKeywords": {}
     },
@@ -115,8 +116,8 @@
     },
     {
       "src": "UserGuide.md",
+      "title": "User Guide",
       "headings": {
-        "layout-default-md-title-and-quot-user-guide-and-quot-pagenav-3": "layout: default.md\ntitle: &quot;User Guide&quot;\npageNav: 3",
         "maladress-user-guide": "MALAdress User Guide",
         "1-introduction": "1. Introduction",
         "2-quick-start": "2. Quick Start",
